@@ -1,0 +1,103 @@
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    font-family: var(--font_poppins);
+    font-size: 1rem;
+    height: 75px;
+    padding: 10px 15px;
+}
+
+.main-header .navigation-bar {
+    display: none;
+} 
+
+.main-header .user-icons-desktop {
+    display: none;
+}
+
+.main-header .burguer-menu-icon {
+    font-size: 24px;
+    order: 0;
+}
+
+.main-header .logo {
+    height: 55px;
+    width: 222px;
+    order: 1;
+}
+
+.main-header .logo img {
+    width: 100%;
+}
+
+.main-header .search-icon {
+    font-size: 24px;
+    order: 2;
+}
+
+.main-header .search-icon i {
+    cursor: pointer;
+}
+
+.main-header .search-form-desktop {
+    display: none;
+}
+
+/* Botón y barra de búsqueda mobile */
+
+.search-form-mobile {
+    display: none; 
+}
+
+.search-bar {
+    border: 1px solid var(--light-grey);
+    border-radius: 50px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 10px;
+    margin: 0 10px;
+}
+
+.search-bar input {
+    border: none;
+    flex-grow: 1;
+}
+
+.search-bar input:focus {
+   outline: none; 
+}
+
+.search-bar input::placeholder {
+    color: var(--grey);
+    font-family: var(--font_poppins);
+}
+
+.search-bar button {
+    border: none;
+    background-color: white;
+}
+
+/* Finaliza botón y barra de búsqueda mobile */
+
+/* Botón y menú desplegable mobile */
+
+.main-header .navigation-bar {
+    order: 3;
+    padding: 15px;
+    width: 100%;
+}
+
+.main-header .navigation-bar .user-icons-mobile {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.main-header .navigation-bar .user-icons-mobile i {
+    font-size: 24px;
+    margin-left: 10px;
+}
+
