@@ -24,54 +24,60 @@
 </head>
 <body>
    <header class="main-header">
-
+    
         <div class="logo">
             <img src="/images/logo/logo.png" alt="">
         </div>  
         
         <i class="fas fa-bars burguer-menu-icon" onclick="dropMenu()"></i>
         
-        <!-- Menú de navegación -->
-        <nav class="navigation-bar" id="navigation-bar">
-          
+        <!-- Menú de navegación mobile-->
+        <nav class="navigation-bar" id="navigation-bar-mobile">
+            
             <div class="user-icons-mobile">
                 <i class="fas fa-user"></i>
                 <i class="fas fa-shopping-cart"></i>
             </div> 
             
-            <!-- Lista con los elementos del menú -->
-            <ul class="menú">
-                <li class="dropdown-menu">
+            <!-- Lista con los elementos del menú (categorías) -->
+            <ul class="menu">
+                <li class="dropdown-menu" onclick="dropSubCategoryMenu(`school`)">
                     Escolar
-                    <i class="fas fa-chevron-down"></i>
-                    <ul id="school">
-                        <li><a href="">Item 1</a> </li>
-                        <li><a href="">Item 2</a> </li>
-                        <li><a href="">Item 3</a></li>
-                    </ul>
+                    <i class="fas fa-chevron-down" ></i>
                 </li>
-                <li class="dropdown-menu">
+                <li class="dropdown-menu" onclick="dropSubCategoryMenu(`art`)">
                     Artística
-                    <i class="fas fa-chevron-down"></i>
-                    <ul id="art">
-                        <li><a href="">Item 1</a> </li>
-                        <li><a href="">Item 2</a> </li>
-                        <li><a href="">Item 3</a></li>
-                    </ul>
+                    <i class="fas fa-chevron-down" ></i>
                 </li>
-                <li class="dropdown-menu">
+                <li class="dropdown-menu" onclick="dropSubCategoryMenu(`office`)">
                     Oficina
-                    <i class="fas fa-chevron-down"></i>
-                    <ul id="office">
-                        <li><a href="">Item 1</a> </li>
-                        <li><a href="">Item 2</a> </li>
-                        <li><a href="">Item 3</a></li>
-                    </ul>
+                    <i class="fas fa-chevron-down" ></i>
                 </li>
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
-        
         </nav> 
+
+          <!-- Menú de navegación desktop -->
+          <nav class="navigation-bar" id="navigation-bar-desktop">
+            <!-- Lista con los elementos del menú (categorías) -->
+            <ul class="menu">
+                <li class="dropdown-menu" onclick="dropSubCategoryMenu(`school`)">
+                    Escolar
+                    <i class="fas fa-chevron-down" ></i>
+                </li>
+                <li class="dropdown-menu" onclick="dropSubCategoryMenu(`art`)">
+                    Artística
+                    <i class="fas fa-chevron-down" ></i>
+                </li>
+                <li class="dropdown-menu" onclick="dropSubCategoryMenu(`office`)">
+                    Oficina
+                    <i class="fas fa-chevron-down" ></i>
+                </li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav> 
+
+      
 
         <!-- Icono del buscador en header mobile -->
         <div class="search-icon" onclick="dropSearch()">
@@ -94,6 +100,7 @@
         </div>     
 
    </header>
+    <nav class="nav_menu">        
         <!-- Buscador mobile -->
         
         <form action="#" class="search-form-mobile" id="search">
@@ -102,5 +109,38 @@
                 <button type="submit"><i class="fas fa-search"></i></button>
             </div>
         </form>
+
+        <!-- Subcategorias desplegables -->
+
+        <div class="subcategory_menu" id="school">
+            <div class="subcategory_header"><h3>ESCOLAR</h3><img src="/images/close.png" onclick="closeWindow()" alt=""></div>
+            <ul>
+                <li><a href="">Item 1</a></li>
+                <li><a href="">Item 2</a></li>
+                <li><a href="">Item 3</a></li>
+            </ul>
+          
+        </div>
+
+        <div class="subcategory_menu" id="art">
+            <div class="subcategory_header"><h3>ARTÍSTICA</h3><img src="/images/close.png" onclick="closeWindow()" alt=""></div>
+            <ul> 
+                <li><a href="">Item 1</a></li>
+                <li><a href="">Item 2</a></li>
+                <li><a href="">Item 3</a></li>
+            </ul>
+           
+        </div>
+
+        <div class="subcategory_menu" id="office">
+            <div class="subcategory_header"><h3>OFICINA</h3><img src="/images/close.png" onclick="closeWindow()" alt=""></div>
+            <ul>
+                <li><a href="">Item 1</a></li>
+                <li><a href="">Item 2</a></li>
+                <li><a href="">Item 3</a></li>
+            </ul>
+        </div>
+    </nav>
+    
 </body>
 </html>

@@ -1,32 +1,41 @@
+/* Maquetado mobile first (a partir de pantalla de 320)*/
+
+
 .main-header {
+    background-color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     font-family: var(--font_poppins);
     font-size: 1rem;
-    height: 75px;
+    height: fit-content;
+    height: -moz-fit-content;
+    min-height: 75px;
     padding: 10px 15px;
+    position: sticky;
+    top: 0;
+    width: 100%;
 }
 
 .main-header .navigation-bar {
     display: none;
-} 
-
-.main-header .user-icons-desktop {
-    display: none;
 }
 
-.main-header .burguer-menu-icon {
+.main-header .user-icons-desktop {
+     display: none;
+}
+
+.main-header .burguer-menu-icon{
     font-size: 24px;
-    order: 0;
+    order: 0; 
 }
 
 .main-header .logo {
     height: 55px;
     width: 222px;
     order: 1;
-}
+}  
 
 .main-header .logo img {
     width: 100%;
@@ -37,7 +46,7 @@
     order: 2;
 }
 
-.main-header .search-icon i {
+.main-header .search-icon i{
     cursor: pointer;
 }
 
@@ -48,7 +57,10 @@
 /* Botón y barra de búsqueda mobile */
 
 .search-form-mobile {
-    display: none; 
+    display: none;
+    order: 3;
+    background-color: white;
+    padding: 10px;
 }
 
 .search-bar {
@@ -68,8 +80,8 @@
 }
 
 .search-bar input:focus {
-   outline: none; 
-}
+    outline: none;
+} 
 
 .search-bar input::placeholder {
     color: var(--grey);
@@ -84,11 +96,14 @@
 /* Finaliza botón y barra de búsqueda mobile */
 
 /* Botón y menú desplegable mobile */
-
 .main-header .navigation-bar {
-    order: 3;
+    order: 4;
     padding: 15px;
     width: 100%;
+}
+
+.main-header .navigation-bar ul.menu li {
+    padding: 10px 0;
 }
 
 .main-header .navigation-bar .user-icons-mobile {
@@ -96,8 +111,129 @@
     justify-content: flex-end;
 }
 
-.main-header .navigation-bar .user-icons-mobile i {
+.main-header .navigation-bar .user-icons-mobile i{
     font-size: 24px;
     margin-left: 10px;
 }
 
+.main-header .navigation-bar#navigation-bar-desktop {
+    display: none;
+}
+
+/* Menu desplegable de subcategorías */
+
+.nav_menu {
+    font-family: var(--font_poppins);
+    font-size: 1rem;
+}
+
+.subcategory_menu {
+    display: none;
+}
+
+.subcategory_menu.active {
+    display: block;
+    background-color: white;
+}
+
+.subcategory_menu .subcategory_header {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+}
+
+.subcategory_menu .subcategory_header img {
+    width: 20px;
+    height: 20px;
+}
+
+.subcategory_menu ul {
+    padding: 15px;
+}
+
+/* MEDIA QUERIES */
+/* Tablet */
+@media (min-width: 768px){
+    .search-form-mobile {
+        width: 35%;
+        margin: 0 auto;
+    }
+
+}
+
+/* Escritorio */
+@media screen and (min-width: 992px) {
+
+    .main-header {
+        height: 100px;
+        padding: 10px 30px;
+    }
+
+    .main-header {
+        flex-wrap: nowrap;
+    }
+
+    .main-header .navigation-bar {
+        display: inherit;
+        order: 1;
+        width: 40%;
+    }
+
+    .main-header .navigation-bar .menu {
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
+        justify-content: space-around;
+    }
+
+        
+    .main-header .navigation-bar#navigation-bar-desktop {
+        display:inherit;
+    }
+
+    
+    .main-header .navigation-bar#navigation-bar-mobile {
+        display: none;
+    }
+
+   .main-header .burguer-menu-icon{
+        display: none;
+    }    
+
+   .main-header .logo {
+        height: 68px;
+        width: 262px;
+        order: 0;
+    }
+    
+    .main-header .search-icon {
+        display: none;
+    }
+
+    
+    .main-header .search-form-desktop {
+        display: inherit;
+        order: 3;
+    }
+    
+    .main-header .navigation-bar .user-icons-mobile {
+        display: none;
+    }
+    
+    .main-header .logo {
+        height: 68px;
+        width: 262px;
+        order: 0;
+    }
+
+    .main-header .user-icons-desktop {
+        display: flex;
+        font-size: 24px;
+        order: 4;
+    }
+
+    .main-header .user-icons-desktop i {
+        margin-left: 10px;
+    }
+
+}
