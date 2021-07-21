@@ -1,28 +1,25 @@
 /* Carousel container */
-
 .carousel-container {
-    max-width: 1000px;
     position: relative;
-    margin: 20px auto;
+    margin: 20px auto 30px;
 }
 
-/* Esconde las imágenes por defecto */
-
+/* Esconde las imágenes por default */
 .slides {
     display: none;
-} 
+}
 
-.slides img {
+.slides img{
     width: 100%;
 }
 
 .dots {
-    text-align: center;
+    width: fit-content;
+    margin: 0 auto;
 }
 
 /* Botones de anterior y siguiente */
-
-.prev, .next {
+.carousel-container .prev, .carousel-container .next {
     cursor: pointer;
     position: absolute;
     top: 50%;
@@ -37,20 +34,18 @@
     user-select: none;
 }
 
-/* Posición del boton siguiente, a la derecha */
-
-.next {
+/* Posición de el boton siguiente a la derecha */
+.carousel-container .next {
     right: 0;
+    border-radius: 3px 0 0 3px;
 }
 
 /* En hover, agrega un fondo con transparencia */
-
 .prev:hover, .next:hover {
     background-color: rgba(255, 255, 255, 0.8);
 }
 
 /* Puntos indicadores */
-
 .dot {
     cursor: pointer;
     height: 15px;
@@ -66,11 +61,12 @@
     background-color: #717171;
 }
 
-/* Fade animation */
-
-@keyframes fade {
-    from {opacity: .4}
-    to {opacity: 1}
+/* Fading animation */
+.fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
 }
 
 @-webkit-keyframes fade {
@@ -78,9 +74,13 @@
     to {opacity: 1}
 }
 
-.fade {
-    animation-name: fade;
-    animation-duration: 1.5s;
-    -webkit-animation-name: fade;
-    -webkit-animation-duration: 1.5s;
+@keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+}
+
+@media screen and (min-width: 1024px) {
+    .carousel-container {
+        margin: 20px auto 50px;
+    }
 }

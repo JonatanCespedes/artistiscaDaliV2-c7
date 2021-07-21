@@ -1,6 +1,10 @@
 /* Maquetado mobile first (a partir de pantalla de 320)*/
 
-
+header {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
 .main-header {
     background-color: white;
     display: flex;
@@ -13,9 +17,8 @@
     height: -moz-fit-content;
     min-height: 75px;
     padding: 10px 15px;
-    position: sticky;
-    top: 0;
     width: 100%;
+    z-index: 999;
 }
 
 .main-header .navigation-bar {
@@ -149,6 +152,10 @@
 
 .subcategory_menu ul {
     padding: 15px;
+}
+
+.header-opacity {
+    opacity: 0.8;
 }
 
 /* MEDIA QUERIES */
