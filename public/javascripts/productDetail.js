@@ -22,7 +22,6 @@ let $count = document.getElementById('count');
         counter = counter + 1
         $count.innerHTML = `<p>${counter}</p>`
     }
-
   }
 
   function subtract () {
