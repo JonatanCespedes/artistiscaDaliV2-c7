@@ -1,8 +1,8 @@
 let express = require('express');
 let router = express.Router();
-let controller = require('../controllers/productsController')
+let { detail } = require('../controllers/productsController')
 
 /* GET - Product Detail */
-router.get('/detail/:id', controller.detail)
+router.get('/detail/:id', detail)
 
 module.exports = router

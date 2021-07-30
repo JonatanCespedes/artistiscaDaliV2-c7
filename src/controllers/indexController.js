@@ -1,5 +1,4 @@
-let productsDB = require('../data/productsDB')
-const { products, carousel } = productsDB
+const { products, carousel } = require('../data/productsDB')
 
 module.exports = {
     index: (req, res) => {
