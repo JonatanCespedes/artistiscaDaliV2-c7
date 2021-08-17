@@ -6,10 +6,16 @@
     data-flickity-options='{ "wrapAround": true }' >
         <% sliderProducts.forEach(product => { %>
             <div class="carousel-cell  productSlide">
-                <a href="/product/detail/<%- product.id %>">
+                <a href="/products/detail/<%- product.id %>">
                     <div class="productDiscount"><%- product.discount %>% OFF</div>
                     <img src="/images/productos/<%- product.image %>" alt="">
-                    <p class="productName"><%- product.name %></p>
+                    <p class="productName"> 
+                        <% if (product.name.length > 30) { %>
+                            <%- `${product.name.slice(0,30)}...` %>
+                        <% } else { %>
+                            <%= product.name %>
+                        <% } %>
+                    </p>
                     <h4 class="productPrice">$<%- product.price %></h4>
                 </a>
             </div>

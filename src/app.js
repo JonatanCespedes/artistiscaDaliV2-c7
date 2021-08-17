@@ -24,8 +24,9 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 /* Rutas */
 app.use('/', indexRouter); // Home - contact
-app.use('/user', usersRouter); // Login - register - Profile
-app.use('/product', productsRouter); // Categories - ProductDetail - CRUD
+app.use('/users', usersRouter); // Login - register - Profile
+app.use('/products', productsRouter); // Categories - ProductDetail - CRUD
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

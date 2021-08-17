@@ -1,5 +1,4 @@
-const { products } = require('../data/productsDB')
-
+const { products, categories } = require('../data/dataBase')
 
 module.exports = {
     detail: (req, res) => {
@@ -11,7 +10,31 @@ module.exports = {
         res.render('productDetail', {
             sliderTitle : "Productos relacionados",
             sliderProducts,
-            product
+            product,
+            categories
+        })
+    },
+    category: (req, res) => {
+        /* Busco la categoría solicitada */
+        let category = categories.find(category => {
+            return category.id === +req.params.id
+        })
+        /* Busco los productos que correspondan a esa categoría */
+        let categoryProducts = products.filter(product => +product.category === +req.params.id)
+
+        /* Busco las subcategorias que corresponden a la categoria seleccionada */ 
+        let subCategories = [];
+        categoryProducts.forEach(product => {
+            if(!subCategories.includes(product.subcategory)){
+                subCategories.push(product.subcategory)
+            }
+        });
+
+        res.render('categories', {
+            category,
+            products: categoryProducts,
+            subCategories,
+            categories
         })
     }
 }

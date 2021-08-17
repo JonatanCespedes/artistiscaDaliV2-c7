@@ -3,7 +3,9 @@
 
 
 <div class="logo">
-    <img src="/images/logo/logo.png" alt="">
+    <a href="/">
+        <img src="/images/logo/logo.png" alt="">
+    </a>
 </div>  
 
 <i class="fas fa-bars burguer-menu-icon" onclick="dropMenu()"></i>
@@ -12,8 +14,8 @@
 <nav class="navigation-bar" id="navigation-bar-mobile">
     
     <div class="user-icons-mobile">
-        <i class="fas fa-user"></i>
-        <i class="fas fa-shopping-cart"></i>
+        <a href="/users/login"><i class="fas fa-user"></i></a>
+        <a href="/products/cart"><i class="fas fa-shopping-cart"></i></a>
     </div> 
     
     <!-- Lista con los elementos del menú (categorías) -->
@@ -68,8 +70,8 @@
 </form>
 
 <div class="user-icons-desktop">
-    <i class="fas fa-user"></i>
-    <i class="fas fa-shopping-cart"></i>
+    <a href="/users/login"><i class="fas fa-user"></i></a>
+    <a href="/products/cart"><i class="fas fa-shopping-cart"></i></a>
 </div>  
 
 
@@ -87,34 +89,16 @@
 
 <!-- Subcategorias desplegables -->
 
-<div class="subcategory_menu" id="school">
-    <div class="subcategory_header"><h3>ESCOLAR</h3><img src="/images/close.png" onclick="closeWindow()" alt=""></div>
-    <ul>
-        <li><a href="">Item 1</a></li>
-        <li><a href="">Item 2</a></li>
-        <li><a href="">Item 3</a></li>
-    </ul>
-  
-</div>
-
-<div class="subcategory_menu" id="art">
-    <div class="subcategory_header"><h3>ARTÍSTICA</h3><img src="/images/close.png" onclick="closeWindow()" alt=""></div>
-    <ul> 
-        <li><a href="">Item 1</a></li>
-        <li><a href="">Item 2</a></li>
-        <li><a href="">Item 3</a></li>
-    </ul>
-   
-</div>
-
-<div class="subcategory_menu" id="office">
-    <div class="subcategory_header"><h3>OFICINA</h3><img src="/images/close.png" onclick="closeWindow()" alt=""></div>
-    <ul>
-        <li><a href="">Item 1</a></li>
-        <li><a href="">Item 2</a></li>
-        <li><a href="">Item 3</a></li>
-    </ul>
-</div>
-</nav>
+<% categories.forEach(category => { %>
+    <div class="subcategory_menu" id="<%- category.code %>">
+        <a href="/products/category/<%- category.id%>"><div class="subcategory_header"><h3><%- category.name.toUpperCase() %></h3><img src="/images/close.png" onclick="closeWindow()" alt=""></div></a>
+        <ul>
+            <li><a href="">Item 1</a></li>
+            <li><a href="">Item 2</a></li>
+            <li><a href="">Item 3</a></li>
+        </ul>
+      
+    </div>
+    <% }) %>
 
 </header>

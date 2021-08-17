@@ -32,7 +32,6 @@
     animation-name: mancha;
     animation-duration: 20s;
     z-index: -1;
-    display: none;
 }
 
 .mancha2 img {
@@ -138,9 +137,5 @@
 
     .category-card {
         width: 30%;
-    }
-
-    .mancha2 {
-        display: inherit;
     }
 }

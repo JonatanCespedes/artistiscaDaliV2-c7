@@ -4,6 +4,7 @@ header {
     position: sticky;
     top: 0;
     z-index: 999;
+    user-select: none;
 }
 .main-header {
     background-color: white;
@@ -107,6 +108,12 @@ header {
 
 .main-header .navigation-bar ul.menu li {
     padding: 10px 0;
+    cursor: pointer;
+    transition: color .5s ease;
+}
+
+.main-header .navigation-bar ul.menu li:hover {
+    color: var(--primary);
 }
 
 .main-header .navigation-bar .user-icons-mobile {

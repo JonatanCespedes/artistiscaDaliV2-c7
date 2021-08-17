@@ -38,10 +38,11 @@ function dropSubCategoryMenu (id) {
      document.querySelector(".active").classList.remove("active")
  }
 
- if(window.scrollY >= 100){
-     console.log(window.scrollY )
-    document.querySelector(".main-header").classList.add("header-opacity")
-}else {
-    document.querySelector(".main-header").classList.remove("header-opacity")
-     
-}
+window.addEventListener("scroll", () => {
+    if(window.scrollY >= 100){
+        console.log(window.scrollY )
+       document.querySelector(".main-header").classList.add("header-opacity")
+   }else {
+       document.querySelector(".main-header").classList.remove("header-opacity")
+   }
+})
