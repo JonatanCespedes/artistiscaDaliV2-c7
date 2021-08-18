@@ -3,11 +3,13 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+let methodOverride = require('method-override')
 
 /* Enrutadores */
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var productsRouter = require('./routes/products');
+var adminRouter = require('./routes/admin');
 
 var app = express();
 
@@ -21,12 +23,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../public')));
+app.use(methodOverride('_method'))
 
 /* Rutas */
 app.use('/', indexRouter); // Home - contact
 app.use('/users', usersRouter); // Login - register - Profile
 app.use('/products', productsRouter); // Categories - ProductDetail - CRUD
-
+app.use('/admin', adminRouter); // Admin
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -61,6 +61,30 @@
   color: var(--primary);
 }
 
+.input-file {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 300px;
+  position: relative;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, .25);
+  color: var(--primary);
+  padding: 0 1rem;
+  border-radius: .5rem;
+  width: 100%;
+  height: 2rem;
+  text-align: center;
+}
+
+.input-file input {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
 .form-ad-input_check {
   display: flex;
   flex-wrap: wrap;
@@ -81,10 +105,9 @@
   margin: 1rem 0;
 }
 
+
 @media screen and (min-width: 768px) {
   .form-ad-input input {
-  
     height: 2.5rem;
   }
-  
 }
