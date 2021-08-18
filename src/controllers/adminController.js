@@ -29,12 +29,19 @@ module.exports = {
     }, 
     productStore: (req, res) => {
         let lastId = 1;
-
+        
 		products.forEach(product => {
 			if(product.id > lastId){
 				lastId = product.id
 			}
 		});
+
+        let arrayImages = [];
+        if(req.files){
+            req.files.forEach(image => {
+                arrayImages.push(image.filename)
+            })
+        }
 
 		let { name, 
 			price, 
@@ -51,7 +58,7 @@ module.exports = {
 			discount,
 			category,
 			subcategory,
-			image: "default-image.png"
+			image: arrayImages.length > 0 ? arrayImages : ["default-image.png"]
 		};
 
 		products.push(newProduct);
@@ -75,7 +82,14 @@ module.exports = {
 			category,
             subcategory, 
 			description } = req.body;
-        
+
+        let arrayImages = [];
+        if(req.files){
+            req.files.forEach(image => {
+                arrayImages.push(image.filename)
+            })
+        }
+    
         products.forEach(product => {
             if(product.id === +req.params.id){
                 product.id = product.id,
@@ -85,7 +99,7 @@ module.exports = {
                 product.discount = discount,
                 product.category = category,
                 product.subcategory = subcategory
-                //product.image =  req.file ? req.file.filename : product.image 
+                product.image = arrayImages.length > 0 ? arrayImages : product.image 
             }
         })
 
