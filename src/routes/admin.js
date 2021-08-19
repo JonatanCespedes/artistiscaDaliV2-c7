@@ -9,7 +9,8 @@ let {
     productEdit, 
     productDestroy,
     productUpdate} = require('../controllers/adminController');
-let upload = require('../middlewares/uploadFiles')
+let upload = require('../middlewares/uploadFiles');
+let productsValidator = require('../validations/productsValidator');
 
 /* GET - Admin Signin */
 router.get('/', signin);
@@ -22,11 +23,11 @@ router.get('/products', products);
 
 /* Create Product*/
 router.get('/products/create', productsCreate);
-router.post('/products/create', upload.array('image'), productStore);
+router.post('/products/create', upload.array('image'), productsValidator, productStore);
 
 /* Edit Product*/
 router.get('/products/edit/:id', productEdit);
-router.put('/products/edit/:id', upload.array('image'), productUpdate);
+router.put('/products/edit/:id', upload.array('image'), productsValidator, productUpdate);
 
 /* Delete Product*/
 router.delete('/products/delete/:id', productDestroy);

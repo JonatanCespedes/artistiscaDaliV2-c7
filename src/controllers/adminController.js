@@ -1,4 +1,5 @@
 const { products, categories, writeProductsJSON } = require('../data/dataBase');
+const { validationResult } = require('express-validator');
 
 
 let subcategories = [];
@@ -28,44 +29,58 @@ module.exports = {
         })
     }, 
     productStore: (req, res) => {
-        let lastId = 1;
-        
-		products.forEach(product => {
-			if(product.id > lastId){
-				lastId = product.id
-			}
-		});
+        let errors = validationResult(req);
 
-        let arrayImages = [];
-        if(req.files){
-            req.files.forEach(image => {
-                arrayImages.push(image.filename)
+        if (errors.isEmpty()) {
+
+            let lastId = 1;
+        
+            products.forEach(product => {
+                if(product.id > lastId){
+                    lastId = product.id
+                }
+            });
+    
+            let arrayImages = [];
+            if(req.files){
+                req.files.forEach(image => {
+                    arrayImages.push(image.filename)
+                })
+            }
+    
+            let { name, 
+                price, 
+                discount,
+                category,
+                subcategory, 
+                description } = req.body;
+            
+            let newProduct = {
+                id: lastId + 1,
+                name,
+                price,
+                description,
+                discount,
+                category,
+                subcategory,
+                image: arrayImages.length > 0 ? arrayImages : ["default-image.png"]
+            };
+    
+            products.push(newProduct);
+    
+            writeProductsJSON(products);
+    
+            res.redirect('/admin/products')
+
+        } else {
+            res.render('adminProductCreateForm', {
+                subcategories,
+                categories, 
+                errors : errors.mapped(),
+                old : req.body
             })
         }
-
-		let { name, 
-			price, 
-			discount,
-			category,
-            subcategory, 
-			description } = req.body;
-		
-		let newProduct = {
-			id: lastId + 1,
-			name,
-			price,
-            description,
-			discount,
-			category,
-			subcategory,
-			image: arrayImages.length > 0 ? arrayImages : ["default-image.png"]
-		};
-
-		products.push(newProduct);
-
-		writeProductsJSON(products);
-
-		res.redirect('/admin/products')
+       
     }, 
     productEdit: (req, res) => {
         let product = products.find(product => product.id === +req.params.id)
