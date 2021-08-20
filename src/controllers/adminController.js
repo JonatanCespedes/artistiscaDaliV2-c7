@@ -91,6 +91,9 @@ module.exports = {
         })
     },
     productUpdate: (req, res) => {
+        let errors = validationResult(req);
+
+        if (errors.isEmpty()) {
         let { name, 
 			price, 
 			discount,
@@ -121,6 +124,18 @@ module.exports = {
         writeProductsJSON(products);
 
         res.redirect("/admin/products")
+        
+        } else {
+            let product = products.find(product => product.id === +req.params.id)
+            
+            res.render('adminProductEditForm', {
+                product,
+                subcategories,
+                categories, 
+                errors : errors.mapped(),
+                old : req.body
+            })
+        }
     },
     productDestroy: (req, res) => {
 		products.forEach(product => {
