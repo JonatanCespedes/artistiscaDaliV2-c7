@@ -1,1 +1,39 @@
-[{"id":1,"name":"Jona","last_name":"Prueba","email":"prueba@gmail.com","pass":"123456","avatar":"default-image.png"},{"id":2,"name":"Jona","last_name":"Prueba","email":"prueba2@gmail.com","pass":"123456","avatar":"default-image.png"}]
+[{
+    "id": 1,
+    "name": "Jona",
+    "last_name": "Prueba",
+    "email": "prueba@gmail.com",
+    "pass": "123456",
+    "avatar": "default-image.png"
+}, {
+    "id": 2,
+    "name": "Jona",
+    "last_name": "Prueba",
+    "email": "prueba2@gmail.com",
+    "pass": "123456",
+    "avatar": "default-image.png"
+}, {
+    "id": 3,
+    "name": "Comision7",
+    "last_name": "La mas despierta",
+    "email": "c7@mail.com",
+    "pass": "123456",
+    "rol": "ROL_USER",
+    "avatar": "default-image.png"
+}, {
+    "id": 4,
+    "name": "Jona",
+    "last_name": "Cespedes",
+    "email": "mail@mail2.com",
+    "pass": "$2a$10$B8Zc/NFuUnk4H7DeUx8btejfDpQ9FYU/a4s2Mkz1xmTkRT/eZaIuO",
+    "rol": "ROL_USER",
+    "avatar": "default-image.png"
+}, {
+    "id": 5,
+    "name": "Prueba2",
+    "last_name": "Cosa",
+    "email": "mail3@mail.com",
+    "pass": "$2a$10$95JwGt454J8GJt5v4aPBAOCmzuAIntconKmP/p/ahuxpQIztXwB5.",
+    "rol": "ROL_USER",
+    "avatar": "default-image.png"
+}]
