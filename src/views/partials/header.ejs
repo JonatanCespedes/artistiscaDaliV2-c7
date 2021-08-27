@@ -101,4 +101,10 @@
     </div>
     <% }) %>
 
+
 </header>
+
+<% if (typeof session.user != "undefined") { %>
+    <a href="/users/profile">Tu perfil</a>
+    <a href="/users/logout">Cerrar Sesion</a>
+   <% } %>

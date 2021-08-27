@@ -5,7 +5,8 @@ const { register,
     profile, 
     processLogin,
     processRegister,
-    logout } = require('../controllers/usersController');
+    logout,
+    updateProfile } = require('../controllers/usersController');
 let loginValidator = require('../validations/loginValidator')    
 let registerValidator = require('../validations/registerValidator');
 let upload = require('../middlewares/uploadAvatar'); 
@@ -21,5 +22,6 @@ router.get('/logout', logout);
 
 /* GET - User profile */
 router.get('/profile', profile)
+router.put('/profile/edit/:id', updateProfile)
 
 module.exports = router
