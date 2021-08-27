@@ -107,4 +107,7 @@
 <% if (typeof session.user != "undefined") { %>
     <a href="/users/profile">Tu perfil</a>
     <a href="/users/logout">Cerrar Sesion</a>
-   <% } %>
+    <% if (session.user.rol === "ROL_ADMIN") { %>
+        <a href="/admin/index">ADMIN</a>
+    <% } %>
+<% } %>

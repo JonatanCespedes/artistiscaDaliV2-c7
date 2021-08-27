@@ -61,7 +61,7 @@ module.exports = {
             user.pc = pc
             user.province = province
             user.city = city
-            user.avatar = req.file ? req.file.fileName : user.avatar
+            user.avatar = req.file ? req.file.filename : user.avatar
 
             writeUsersJSON(users)
 
@@ -114,7 +114,6 @@ module.exports = {
     },
     processRegister: (req, res) => {
         let errors = validationResult(req);
-        res.send(req.file)
 
         if (errors.isEmpty()) {
 

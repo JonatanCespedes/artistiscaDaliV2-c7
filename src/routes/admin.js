@@ -11,22 +11,24 @@ let {
     productUpdate} = require('../controllers/adminController');
 let upload = require('../middlewares/uploadFiles');
 let productsValidator = require('../validations/productsValidator');
+let userAdminCheck = require('../middlewares/userAdminCheck');
+let userSession = require('../middlewares/userSession')
 
 /* GET - Admin Signin */
 router.get('/', signin);
 
 /* GET - Admin Dashboard */
-router.get('/index', dashboard);
+router.get('/index', userSession, userAdminCheck,dashboard);
 
 /* GET - Admin products*/
-router.get('/products', products);
+router.get('/products', userSession, userAdminCheck,products);
 
 /* Create Product*/
-router.get('/products/create', productsCreate);
+router.get('/products/create', userSession, userAdminCheck,productsCreate);
 router.post('/products/create', upload.array('image'), productsValidator, productStore);
 
 /* Edit Product*/
-router.get('/products/edit/:id', productEdit);
+router.get('/products/edit/:id', userSession, userAdminCheck,productEdit);
 router.put('/products/edit/:id', upload.array('image'), productsValidator, productUpdate);
 
 /* Delete Product*/
