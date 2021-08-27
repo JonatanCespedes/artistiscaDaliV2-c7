@@ -1,14 +1,1 @@
-[{
-    "id": 1,
-    "name": "Jona",
-    "last_name": "Cespedes",
-    "email": "mail@mail.com",
-    "pass": "$2a$10$UXVElnSkl9E6uDFKXHCVd.nofZL0YU1HMgjg6rTx3sawsBM740IFK",
-    "rol": "ROL_USER",
-    "tel": "",
-    "address": "",
-    "pc": "",
-    "province": "",
-    "city": "",
-    "avatar": "default-image.png"
-}]
+[{"id":1,"name":"Jona","last_name":"Cespedes","email":"mail@mail.com","pass":"$2a$10$UXVElnSkl9E6uDFKXHCVd.nofZL0YU1HMgjg6rTx3sawsBM740IFK","rol":"ROL_USER","tel":"15515151","address":"Calle false 123","province":"","city":"","pc":"1852"},{"id":2,"name":"Otro","last_name":"usuario","email":"mail2@mail.com","pass":"$2a$10$7TVnhhce5CHB6Yis0d7k3OWxQuGHZ8OVOQo.GYVSF/TLtoNSCUmxG","rol":"ROL_USER","tel":"","address":"","pc":"","province":"","city":""},{"id":3,"name":"Nuevo","last_name":"kamckmnw","email":"mail3@mail.com","pass":"$2a$10$R4lPdWp3o49dRB5vHYxBtOUn3PA/1eQ.kh0TbbO/owupKjZ0n.37O","rol":"ROL_USER","tel":"","address":"","pc":"","province":"","city":""},{"id":4,"name":"dsvarva","last_name":"arvarvaer","email":"mail4@mail.com","pass":"$2a$10$lqGf2cirbWdCn9/KE3COhe.SjDtQXpVrXwCdTD0wNDUPVLu9xUe9O","rol":"ROL_USER","tel":"","address":"","pc":"","province":"","city":""}]

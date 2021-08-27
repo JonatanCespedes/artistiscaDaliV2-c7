@@ -27,12 +27,21 @@ module.exports = {
                 user
             })
     },
+    editProfile: (req, res) => {
+        let user = users.find(user => user.id === +req.params.id)
+
+        res.render('userProfileEdit', {
+            categories, 
+            user,
+            session: req.session
+        })
+    },
     /* User profile */
     updateProfile: (req, res) =>{
         let errors = validationResult(req)
             
         if(errors.isEmpty()){
-            let user = users.find(user => user.id === req.session.id)
+            let user = users.find(user => user.id === +req.params.id)
             
             let { 
                 name, 
@@ -56,12 +65,14 @@ module.exports = {
 
             writeUsersJSON(users)
 
-            req.session.user = delete user.pass
+            delete user.pass
             
-            res.send(req.session)
+            req.session.user = user
+
+            res.redirect("/users/profile")
                   
         } else{
-            res.render('profile', {
+            res.render('userProfileEdit', {
                 categories,
                 errors: errors.mapped(),
                 old: req.body,
@@ -97,11 +108,13 @@ module.exports = {
             res.render('login', {
                 categories,
                 errors: errors.mapped(), 
+                session:req.session 
             })
     }        
     },
     processRegister: (req, res) => {
         let errors = validationResult(req);
+        res.send(req.file)
 
         if (errors.isEmpty()) {
 
@@ -126,13 +139,13 @@ module.exports = {
                 last_name,
                 email,
                 pass: bcrypt.hashSync(pass1, 10),
+                avatar: req.file ? req.file.filename : "default-image.png",
                 rol: "ROL_USER",
                 tel: "",
                 address: "",
                 pc:"",
                 province:"",
-                city:"",
-                avatar: req.file ? req.file.fileName : "default-image.png"
+                city:""
             };
     
             users.push(newUser);

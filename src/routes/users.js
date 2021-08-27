@@ -6,10 +6,12 @@ const { register,
     processLogin,
     processRegister,
     logout,
-    updateProfile } = require('../controllers/usersController');
+    updateProfile,
+    editProfile } = require('../controllers/usersController');
 let loginValidator = require('../validations/loginValidator')    
 let registerValidator = require('../validations/registerValidator');
 let upload = require('../middlewares/uploadAvatar'); 
+let userSession = require('../middlewares/userSession')
 
 /* GET - Register form */
 router.get('/register', register);
@@ -21,7 +23,9 @@ router.post('/login', loginValidator, processLogin);
 router.get('/logout', logout);
 
 /* GET - User profile */
-router.get('/profile', profile)
-router.put('/profile/edit/:id', updateProfile)
+router.get('/profile', userSession,profile)
+
+router.get('/profile/edit/:id', editProfile)
+router.put('/profile/edit/:id', upload.single('avatar'),updateProfile)
 
 module.exports = router
