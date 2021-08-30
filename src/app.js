@@ -5,6 +5,11 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 let methodOverride = require('method-override');
 let session = require('express-session')
+var express = require('express');
+var cookieSession = require('cookie-session')
+
+
+
 
 /* Enrutadores */
 var indexRouter = require('./routes/index');
@@ -28,8 +33,10 @@ app.use(methodOverride('_method'));
 app.use(session({ 
   secret: "mySecret", 
   resave: false, 
-  saveUninitialized: true 
+  saveUninitialized: true ,
+  cookie: { maxAge: 60000 }
 }));
+
 
 
 

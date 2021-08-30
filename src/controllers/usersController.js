@@ -97,7 +97,7 @@ module.exports = {
             }
 
             if(req.body.remember){ // Si el checkbox está seleccionado creo la cookie
-                res.cookie('userArtisticaDali',req.session.user,{maxAge:1000*60*2})
+                res.cookie('userArtisticaDali',req.session.user,{expires: new Date(Date.now() + 900000), httpOnly: true})
             }
 
             res.locals.user = req.session.user; //Creo la variable user en la propiedad locals dentro del objeto request y como valor le asigno los datos del usuario en sesión
