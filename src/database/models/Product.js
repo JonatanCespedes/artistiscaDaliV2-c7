@@ -27,8 +27,7 @@ module.exports = (sequelize, dataTypes) => {
         },
         images: {
             type: dataTypes.TEXT,
-        }
-        
+        },
     }
     let config = {
         tableName: "products",

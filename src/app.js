@@ -10,7 +10,6 @@ var express = require('express');
 
 
 
-
 /* Enrutadores */
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -34,8 +33,7 @@ app.use(methodOverride('_method'));
 app.use(session({ 
   secret: "mySecret", 
   resave: false, 
-  saveUninitialized: true ,
-  cookie: { maxAge: 60000 }
+  saveUninitialized: true
 }));
 
 

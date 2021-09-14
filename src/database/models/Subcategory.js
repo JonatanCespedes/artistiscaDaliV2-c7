@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 const Category = require("./Category");
 
+=======
+>>>>>>> 391cc2d71fb4f1ef2396794bb1245cc30f1a044e
 module.exports = (sequelize, dataTypes) => {
     let alias = "Subcategories";
     let cols = {
@@ -24,8 +27,6 @@ module.exports = (sequelize, dataTypes) => {
     }
 
     const Subcategory = sequelize.define(alias, cols, config)
-
-    
 
     return Subcategory;
 }

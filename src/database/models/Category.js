@@ -8,13 +8,18 @@ module.exports = (sequelize, dataTypes) => {
             allowNull: false 
         },
         name: {
-            type: dataTypes.STRING(45),
+            type: dataTypes.STRING,
             allowNull: false
         },
+        banner: {
+            type: dataTypes.STRING,
+            allowNull: false
+        }
     }
+    
     let config = {
         tableName: "categories",
-        timeStamps: true
+        timeStamps: false
     }
 
     const Category = sequelize.define(alias, cols, config)
