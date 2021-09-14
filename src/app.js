@@ -6,7 +6,6 @@ var logger = require('morgan');
 let methodOverride = require('method-override');
 let session = require('express-session')
 var express = require('express');
-var cookieSession = require('cookie-session')
 
 
 
