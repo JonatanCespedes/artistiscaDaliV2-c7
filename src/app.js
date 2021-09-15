@@ -15,6 +15,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var productsRouter = require('./routes/products');
 var adminRouter = require('./routes/admin');
+const localsCheck = require('./middlewares/localsCheck')
 
 var app = express();
 
@@ -32,9 +33,9 @@ app.use(methodOverride('_method'));
 app.use(session({ 
   secret: "mySecret", 
   resave: false, 
-  saveUninitialized: true ,
-  cookie: { maxAge: 60000 }
+  saveUninitialized: true
 }));
+app.use(localsCheck)
 
 
 

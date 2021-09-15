@@ -1,5 +1,6 @@
 const { products, categories, writeProductsJSON } = require('../data/dataBase');
 const { validationResult } = require('express-validator');
+const fs = require('fs')
 
 
 let subcategories = [];
@@ -147,6 +148,9 @@ module.exports = {
     productDestroy: (req, res) => {
 		products.forEach(product => {
             if(product.id === +req.params.id){
+                fs.existsSync("./public/images/productos/", product.image[0])
+                ? fs.unlinkSync("./public/images/productos/" + product.image[0])
+                : console.log("-- No se encontró")
                 let productToDestroy = products.indexOf(product);
                 products.splice(productToDestroy, 1)
             }

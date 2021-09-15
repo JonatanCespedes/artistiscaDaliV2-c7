@@ -11,7 +11,7 @@ module.exports = (sequelize, dataTypes) => {
             type: dataTypes.STRING,
             allowNull: false
         },
-        category_id: {
+        categoryId: {
             type: dataTypes.INTEGER,
             allowNull: false
         }
@@ -19,7 +19,7 @@ module.exports = (sequelize, dataTypes) => {
     
     let config = {
         tableName: "subcategories",
-        timeStamps: false
+        timestamps: false
     }
 
     const Subcategory = sequelize.define(alias, cols, config)
