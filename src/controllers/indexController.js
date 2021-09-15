@@ -1,7 +1,5 @@
 const {
-    products,
-    carousel,
-    categories
+    carousel
 } = require('../data/dataBase')
 const db = require('../database/models')
 const {
@@ -11,16 +9,25 @@ const {
 
 module.exports = {
     index: (req, res) => {
-        db.Products.findAll({
+        const productsPromise = db.Products.findAll({
                 where: {
                     discount: {
-                        [Op.gte]: 15
+                        [Op.gte]: 5
                     }
                 }
             })
-            .then(products => {
-                console.log(products)
+        const categoriesPromise = db.Categories.findAll()    
+
+        Promise.all([productsPromise, categoriesPromise])
+            .then(([productsResult, categoriesResult]) => {  
+                res.render('index', {
+                    sliderTitle : "Ofertas especiales",
+                    sliderProducts: productsResult,
+                    carousel,
+                    categories: categoriesResult,
+                    session: req.session
             })
+        }).catch(err => console.log(err))
         /* let sliderProducts = products.filter(product => product.discount >= 15)
         
         res.render('index', {

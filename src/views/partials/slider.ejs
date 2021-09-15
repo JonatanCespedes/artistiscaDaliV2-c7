@@ -8,7 +8,7 @@
             <div class="carousel-cell  productSlide">
                 <a href="/products/detail/<%- product.id %>">
                     <div class="productDiscount"><%- product.discount %>% OFF</div>
-                    <img src="/images/productos/<%- product.image[0] %>" alt="">
+                    <img src="/images/productos/<%- product.image %>" alt="">
                     <p class="productName"> 
                         <% if (product.name.length > 30) { %>
                             <%- `${product.name.slice(0,30)}...` %>
