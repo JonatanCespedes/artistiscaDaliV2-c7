@@ -21,7 +21,7 @@ module.exports = (sequelize, dataTypes) => {
         description: {
             type: dataTypes.STRING(800),
         },
-        subcategory_id: {
+        subcategoryId: {
             type: dataTypes.INTEGER,
             allowNull: false
         },
@@ -31,10 +31,21 @@ module.exports = (sequelize, dataTypes) => {
     }
     let config = {
         tableName: "products",
-        timeStamps: true
+        timestamps: true
     }
 
     const Product = sequelize.define(alias, cols, config)
+
+    Product.associate = models => {
+        Product.belongsTo(models.Subcategories, {
+            as: "subcategories",
+            foreignKey: "subcategoryId"
+        })
+        Product.hasMany(models.ProductImages, {
+            as: "productImages",
+            foreignKey: "productId"
+        })
+    }
 
     return Product;
 }

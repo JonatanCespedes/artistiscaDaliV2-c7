@@ -22,7 +22,7 @@ module.exports = (sequelize, dataTypes) => {
         postal_code: {
             type: dataTypes.INTEGER
         },
-        user_id: {
+        userId: {
             type: dataTypes.INTEGER,
             allowNull: false
         },
@@ -30,7 +30,7 @@ module.exports = (sequelize, dataTypes) => {
     
     let config = {
         tableName: "addresses",
-        timeStamps: false
+        timestamps: false
     }
 
     const Address = sequelize.define(alias, cols, config)

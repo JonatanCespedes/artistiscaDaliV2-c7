@@ -19,7 +19,7 @@ module.exports = (sequelize, dataTypes) => {
     
     let config = {
         tableName: "categories",
-        timeStamps: false
+        timestamps: false
     }
 
     const Category = sequelize.define(alias, cols, config)
@@ -27,7 +27,7 @@ module.exports = (sequelize, dataTypes) => {
     Category.associate = models => {
         Category.hasMany(models.Subcategories, {
             as:"subcategories",
-            foreignKey:"category_id"
+            foreignKey:"categoryId"
         })
     }
 

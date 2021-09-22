@@ -1,5 +1,6 @@
 const { products, categories, writeProductsJSON } = require('../data/dataBase');
 const { validationResult } = require('express-validator');
+const fs = require('fs')
 
 
 let subcategories = [];
@@ -34,7 +35,14 @@ module.exports = {
     }, 
     productStore: (req, res) => {
         let errors = validationResult(req);
-
+        if (req.fileValidatorError) {
+            let image = {
+                param : "image",
+                msg: req.fileValidatorError
+            }
+            errors.push(image)
+        }
+        res.send(errors)
         if (errors.isEmpty()) {
 
             let lastId = 1;
@@ -98,7 +106,13 @@ module.exports = {
     },
     productUpdate: (req, res) => {
         let errors = validationResult(req);
-
+        if (req.fileValidatorError) {
+            let image = {
+                param : "image",
+                msg: req.fileValidatorError
+            }
+            errors.push(image)
+        }
         if (errors.isEmpty()) {
         let { name, 
 			price, 
@@ -147,6 +161,9 @@ module.exports = {
     productDestroy: (req, res) => {
 		products.forEach(product => {
             if(product.id === +req.params.id){
+                fs.existsSync("./public/images/productos/", product.image[0])
+                ? fs.unlinkSync("./public/images/productos/" + product.image[0])
+                : console.log(">>>> no de eliminó")
                 let productToDestroy = products.indexOf(product);
                 products.splice(productToDestroy, 1)
             }

@@ -97,7 +97,7 @@ module.exports = {
             }
 
             if(req.body.remember){ // Si el checkbox está seleccionado creo la cookie
-                res.cookie('userArtisticaDali',req.session.user,{expires: new Date(Date.now() + 900000), httpOnly: true})
+                res.cookie('userArtisticaDali',req.session.user,{expires: new Date(Date.now() + 900000), httpOnly: true, secure: true})
             }
 
             res.locals.user = req.session.user; //Creo la variable user en la propiedad locals dentro del objeto request y como valor le asigno los datos del usuario en sesión
@@ -114,7 +114,13 @@ module.exports = {
     },
     processRegister: (req, res) => {
         let errors = validationResult(req);
-
+        if (req.fileValidatorError) {
+            let image = {
+                param : "image",
+                msg: req.fileValidatorError
+            }
+            errors.push(image)
+        }
         if (errors.isEmpty()) {
 
             let lastId = 0;
@@ -157,7 +163,8 @@ module.exports = {
             res.render('register', {
                 categories, 
                 errors : errors.mapped(),
-                old : req.body
+                old : req.body,
+                session:req.session 
             })
         }
     },

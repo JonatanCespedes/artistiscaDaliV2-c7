@@ -5,10 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 let methodOverride = require('method-override');
 let session = require('express-session')
-var express = require('express');
-
-
-
+let localsCheck = require('./middlewares/localsCheck')
+let categoriesHeader = require('./middlewares/categoriesHeader')
 
 /* Enrutadores */
 var indexRouter = require('./routes/index');
@@ -35,7 +33,8 @@ app.use(session({
   resave: false, 
   saveUninitialized: true
 }));
-
+app.use(localsCheck)
+app.use(categoriesHeader)
 
 
 

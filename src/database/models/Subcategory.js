@@ -11,17 +11,28 @@ module.exports = (sequelize, dataTypes) => {
             type: dataTypes.STRING(45),
             allowNull: false
         },
-        category_id: {
+        categoryId: {
             type: dataTypes.INTEGER,
             allowNull: false
         },
     }
     let config = {
         tableName: "subcategories",
-        timeStamps: true
+        timestamps: true
     }
 
     const Subcategory = sequelize.define(alias, cols, config)
+
+    Subcategory.associate = models => {
+        Subcategory.belongsTo(models.Categories, {
+            as: "category",
+            foreignKey:"categoryId"
+        })
+        Subcategory.hasMany(models.Products,{
+            as: "products",
+            foreignKey: "subcategoryId"
+        })
+    }
 
     return Subcategory;
 }
