@@ -9,33 +9,20 @@ const {
 
 module.exports = {
     index: (req, res) => {
-        const productsPromise = db.Products.findAll({
+        db.Products.findAll({
                 where: {
                     discount: {
                         [Op.gte]: 5
                     }
                 }
             })
-        const categoriesPromise = db.Categories.findAll()    
-
-        Promise.all([productsPromise, categoriesPromise])
-            .then(([productsResult, categoriesResult]) => {  
+            .then(products => {  
                 res.render('index', {
                     sliderTitle : "Ofertas especiales",
-                    sliderProducts: productsResult,
+                    sliderProducts: products,
                     carousel,
-                    categories: categoriesResult,
                     session: req.session
             })
         }).catch(err => console.log(err))
-        /* let sliderProducts = products.filter(product => product.discount >= 15)
-        
-        res.render('index', {
-            sliderTitle : "Ofertas especiales",
-            sliderProducts,
-            carousel,
-            categories,
-            session: req.session
-        }) */
     }
 }

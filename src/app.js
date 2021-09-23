@@ -6,16 +6,14 @@ var logger = require('morgan');
 let methodOverride = require('method-override');
 let session = require('express-session')
 var express = require('express');
-
-
-
+const localsCheck = require('./middlewares/localsCheck')
+let categoriesHeader = require('./middlewares/categoriesHeader')
 
 /* Enrutadores */
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var productsRouter = require('./routes/products');
 var adminRouter = require('./routes/admin');
-const localsCheck = require('./middlewares/localsCheck')
 
 var app = express();
 
@@ -36,6 +34,8 @@ app.use(session({
   saveUninitialized: true
 }));
 app.use(localsCheck)
+app.use(categoriesHeader)
+
 
 
 
