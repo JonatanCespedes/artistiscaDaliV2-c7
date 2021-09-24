@@ -1,14 +1,15 @@
-const { products, categories, writeProductsJSON } = require('../data/dataBase');
+//const { products, categories, writeProductsJSON } = require('../data/dataBase');
 const { validationResult } = require('express-validator');
-const fs = require('fs')
+//const fs = require('fs')
+const db = require('../database/models')
 
 
-let subcategories = [];
+/* let subcategories = [];
 products.forEach(product => {
     if(!subcategories.includes(product.subcategory)){
         subcategories.push(product.subcategory)
     }  
-});
+}); */
 
 
 module.exports = {
@@ -21,17 +22,35 @@ module.exports = {
         })
     }, 
     products: (req, res) => {
-        res.render('adminProducts', {
-            products,
-            session: req.session
+        db.Products.findAll()
+        .then(products => {
+            res.render('adminProducts', {
+                products,
+                session: req.session
+            })
         })
     }, 
     productsCreate: (req, res) => {
-        res.render('adminProductCreateForm', {
-            categories, 
-            subcategories,
-            session: req.session
+        db.Categories.findAll({
+            include: [{
+                association: "subcategories"
+            }]
         })
+        .then(categories => {
+            let subcategories = []
+            categories.forEach(category => {
+                category.subcategories.forEach(subcategory => {
+                    subcategories.push(subcategory)
+                })
+            })
+            
+            res.render('adminProductCreateForm', {
+                categories,
+                subcategories,
+                session: req.session
+            })
+        })
+        .catch(err => console.log(err))
     }, 
     productStore: (req, res) => {
         let errors = validationResult(req);

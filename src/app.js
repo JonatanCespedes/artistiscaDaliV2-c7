@@ -38,6 +38,7 @@ app.use(categoriesHeader)
 
 
 
+
 /* Rutas */
 app.use('/', indexRouter); // Home - contact
 app.use('/users', usersRouter); // Login - register - Profile

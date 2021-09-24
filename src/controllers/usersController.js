@@ -1,6 +1,7 @@
 const { categories, users, writeUsersJSON } = require('../data/dataBase')
 const { validationResult } = require('express-validator')
 const bcrypt = require('bcryptjs')
+const db = require('../database/models')
 
 module.exports = {
     /* Register form */
@@ -85,25 +86,30 @@ module.exports = {
             
         if(errors.isEmpty()){
 
-            let user = users.find(user => user.email === req.body.email)
-
-            req.session.user = { 
-                id: user.id,
-                name: user.name,
-                last_name: user.last_name,
-                email: user.email,
-                avatar: user.avatar,
-                rol: user.rol
-            }
-
-            if(req.body.remember){ // Si el checkbox está seleccionado creo la cookie
-                res.cookie('userArtisticaDali',req.session.user,{expires: new Date(Date.now() + 900000), httpOnly: true, secure: true})
-            }
-
-            res.locals.user = req.session.user; //Creo la variable user en la propiedad locals dentro del objeto request y como valor le asigno los datos del usuario en sesión
-        
-            res.redirect('/')
-                     
+            //let user = users.find(user => user.email === req.body.email)
+            db.Users.findOne({
+                where: {
+                    email: req.body.email
+                }
+            })
+            .then(user => {
+                req.session.user = { 
+                    id: user.id,
+                    name: user.name,
+                    last_name: user.last_name,
+                    email: user.email,
+                    avatar: user.avatar,
+                    rol: user.rol
+                }
+    
+                if(req.body.remember){ // Si el checkbox está seleccionado creo la cookie
+                    res.cookie('userArtisticaDali',req.session.user,{expires: new Date(Date.now() + 900000), httpOnly: true, secure: true})
+                }
+    
+                res.locals.user = req.session.user; //Creo la variable user en la propiedad locals dentro del objeto request y como valor le asigno los datos del usuario en sesión
+            
+                res.redirect('/')
+            })     
         } else{
             res.render('login', {
                 categories,
@@ -123,14 +129,6 @@ module.exports = {
         }
         if (errors.isEmpty()) {
 
-            let lastId = 0;
-        
-            users.forEach(user => {
-                if(user.id > lastId){
-                    lastId = user.id
-                }
-            });
-    
             let { 
                 name, 
                 last_name,
@@ -138,26 +136,22 @@ module.exports = {
                 pass1
               } = req.body;
             
-            let newUser = {
-                id: lastId + 1,
+            db.Users.create({
                 name,
                 last_name,
                 email,
                 pass: bcrypt.hashSync(pass1, 10),
                 avatar: req.file ? req.file.filename : "default-image.png",
-                rol: "ROL_USER",
+                /* rol: "ROL_USER",
                 tel: "",
                 address: "",
                 pc:"",
                 province:"",
-                city:""
-            };
-    
-            users.push(newUser);
-    
-            writeUsersJSON(users);
-    
-            res.redirect('/users/login')
+                city:"" */
+            })
+            .then(() => {
+                res.redirect('/users/login')
+            })
 
         } else {
             res.render('register', {
