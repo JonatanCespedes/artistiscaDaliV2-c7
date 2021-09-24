@@ -24,10 +24,8 @@ module.exports = (sequelize, dataTypes) => {
         subcategoryId: {
             type: dataTypes.INTEGER,
             allowNull: false
-        },
-        images: {
-            type: dataTypes.TEXT,
-        },
+        }
+        
     }
     let config = {
         tableName: "products",
@@ -38,7 +36,7 @@ module.exports = (sequelize, dataTypes) => {
 
     Product.associate = models => {
         Product.belongsTo(models.Subcategories, {
-            as: "subcategories",
+            as:"subcategories",
             foreignKey: "subcategoryId"
         })
         Product.hasMany(models.ProductImages, {

@@ -40,18 +40,12 @@
 <nav class="navigation-bar" id="navigation-bar-desktop">
 <!-- Lista con los elementos del menú (categorías) -->
     <ul class="menu">
-        <li class="dropdown-menu" onclick="dropSubCategoryMenu(`school`)">
-            Escolar
-            <i class="fas fa-chevron-down" ></i>
-        </li>
-        <li class="dropdown-menu" onclick="dropSubCategoryMenu(`art`)">
-            Artística
-            <i class="fas fa-chevron-down" ></i>
-        </li>
-        <li class="dropdown-menu" onclick="dropSubCategoryMenu(`office`)">
-            Oficina
-            <i class="fas fa-chevron-down" ></i>
-        </li>
+        <% locals.categories.forEach(category => { %>
+            <li class="dropdown-menu" onclick="dropSubCategoryMenu(`school`)">
+                <%- category.name %> 
+                <i class="fas fa-chevron-down" ></i>
+            </li>
+        <% }) %>
         <li><a href="#contacto">Contacto</a></li>
     </ul>
 </nav> 

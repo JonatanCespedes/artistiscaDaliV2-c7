@@ -1,5 +1,5 @@
 const {
-    carousel,
+    carousel
 } = require('../data/dataBase')
 const db = require('../database/models')
 const {
@@ -9,13 +9,14 @@ const {
 
 module.exports = {
     index: (req, res) => {
-        const productsPromise = db.Products.findAll({
-            where: {
-                discount: {
-                    [Op.gte]: 15
+        db.Products.findAll({
+                where: {
+                    discount: {
+                        [Op.gte]: 5
+                    }
                 }
             }
-        })
+        )
         .then(products => {        
                 res.render('index', {
                     sliderTitle : "Ofertas especiales",
@@ -23,7 +24,6 @@ module.exports = {
                     carousel,
                     session: req.session
                 })
-            })
-        .catch(err => console.log(err))    
+        }).catch(err => console.log(err))
     }
 }

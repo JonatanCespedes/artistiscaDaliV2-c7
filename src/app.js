@@ -5,7 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 let methodOverride = require('method-override');
 let session = require('express-session')
-let localsCheck = require('./middlewares/localsCheck')
+var express = require('express');
+const localsCheck = require('./middlewares/localsCheck')
 let categoriesHeader = require('./middlewares/categoriesHeader')
 
 /* Enrutadores */

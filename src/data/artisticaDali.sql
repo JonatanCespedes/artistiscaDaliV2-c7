@@ -29,10 +29,10 @@ CREATE TABLE `addresses` (
   `province` varchar(100) DEFAULT NULL,
   `number` int(11) DEFAULT NULL,
   `postal_code` int(11) DEFAULT NULL,
-  `user_id` int(11) NOT NULL,
+  `userId` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `addresses_FK` (`user_id`),
-  CONSTRAINT `addresses_FK` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+  KEY `addresses_FK` (`userId`),
+  CONSTRAINT `addresses_FK` FOREIGN KEY (`userId`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -54,7 +54,7 @@ DROP TABLE IF EXISTS `categories`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `categories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) NOT NULL,
+  `name` varchar(45) NOT NULL,
   `banner` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
@@ -84,14 +84,14 @@ CREATE TABLE `products` (
   `price` int(11) NOT NULL,
   `discount` int(11) DEFAULT NULL,
   `description` varchar(800) DEFAULT NULL,
-  `subcategory_id` int(11) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
+  `subcategoryId` int(11) NOT NULL,
+  `createdAt` timestamp NULL DEFAULT NULL,
+  `updatedAt` timestamp NULL DEFAULT NULL,
   `images` text DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
-  KEY `subcategory_idx` (`subcategory_id`),
-  CONSTRAINT `subcategory` FOREIGN KEY (`subcategory_id`) REFERENCES `subcategories` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `subcategory_idx` (`subcategoryId`),
+  CONSTRAINT `subcategory` FOREIGN KEY (`subcategoryId`) REFERENCES `subcategories` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -114,12 +114,14 @@ DROP TABLE IF EXISTS `subcategories`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `subcategories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) NOT NULL,
-  `categoria_id` int(11) NOT NULL,
+  `name` varchar(45) NOT NULL,
+  `categoryId` int(11) NOT NULL,
+  `createdAt` date DEFAULT NULL,
+  `updatedAt` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
-  KEY `categoria_idx` (`categoria_id`),
-  CONSTRAINT `categoria` FOREIGN KEY (`categoria_id`) REFERENCES `categories` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `categoria_idx` (`categoryId`),
+  CONSTRAINT `categoria` FOREIGN KEY (`categoryId`) REFERENCES `categories` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -129,7 +131,7 @@ CREATE TABLE `subcategories` (
 
 LOCK TABLES `subcategories` WRITE;
 /*!40000 ALTER TABLE `subcategories` DISABLE KEYS */;
-INSERT INTO `subcategories` VALUES (1,'Mochilas',1),(2,'Cartucheras',1),(3,'LÃƒÂ¡pices',1),(4,'Oleos',2),(5,'Acuarelas',2),(6,'Atriles',2),(8,'Biblioratos',3),(9,'Abrochadoras',3),(10,'Marcadores',2),(11,'Carpetas',1),(12,'AcrÃƒÂ­licos',2),(13,'Pinceles',2),(14,'CompÃƒÂ¡s',2),(15,'Cuadernos',1),(16,'Barniz',2),(17,'Tintas',2),(18,'Gomas',1),(19,'Tijeras',1),(20,'Cajas',3),(21,'Bastidores',2),(22,'Cintas Adhesivas',3),(23,'Pizarras',3),(24,'Perforadoras',3),(25,'Sobres',3),(26,'Caballetes y atriles',2),(27,'Repuestos',1);
+INSERT INTO `subcategories` VALUES (1,'Mochilas',1,NULL,NULL),(2,'Cartucheras',1,NULL,NULL),(3,'LÃƒÂ¡pices',1,NULL,NULL),(4,'Oleos',2,NULL,NULL),(5,'Acuarelas',2,NULL,NULL),(6,'Atriles',2,NULL,NULL),(8,'Biblioratos',3,NULL,NULL),(9,'Abrochadoras',3,NULL,NULL),(10,'Marcadores',2,NULL,NULL),(11,'Carpetas',1,NULL,NULL),(12,'AcrÃƒÂ­licos',2,NULL,NULL),(13,'Pinceles',2,NULL,NULL),(14,'CompÃƒÂ¡s',2,NULL,NULL),(15,'Cuadernos',1,NULL,NULL),(16,'Barniz',2,NULL,NULL),(17,'Tintas',2,NULL,NULL),(18,'Gomas',1,NULL,NULL),(19,'Tijeras',1,NULL,NULL),(20,'Cajas',3,NULL,NULL),(21,'Bastidores',2,NULL,NULL),(22,'Cintas Adhesivas',3,NULL,NULL),(23,'Pizarras',3,NULL,NULL),(24,'Perforadoras',3,NULL,NULL),(25,'Sobres',3,NULL,NULL),(26,'Caballetes y atriles',2,NULL,NULL),(27,'Repuestos',1,NULL,NULL);
 /*!40000 ALTER TABLE `subcategories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -177,4 +179,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-13  9:12:31
+-- Dump completed on 2021-09-15  9:03:14
