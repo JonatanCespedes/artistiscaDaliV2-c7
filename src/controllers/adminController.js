@@ -1,14 +1,6 @@
-//const { products, categories, writeProductsJSON } = require('../data/dataBase');
 const { validationResult } = require('express-validator');
 const fs = require('fs')
-
-
-/* let subcategories = [];
-products.forEach(product => {
-    if(!subcategories.includes(product.subcategory)){
-        subcategories.push(product.subcategory)
-    }  
-}); */
+const db = require('../database/models')
 
 
 module.exports = {

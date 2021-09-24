@@ -65,7 +65,7 @@ module.exports = {
             id: req.params.id,
           },
         }
-      ).then(() => {
+      ).then((result) => {
         db.Addresses.create({
           street: address,
           city: city,

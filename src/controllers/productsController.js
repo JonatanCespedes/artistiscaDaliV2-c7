@@ -6,7 +6,14 @@ const {
 
 module.exports = {
     detail: (req, res) => {
-        db.Products.findByPk(+req.params.id)
+        db.Products.findOne({
+            where: {
+                id: +req.params.id
+            },
+            include: [{
+                association: "productImages"
+            }]
+        })
             .then(product => {
                 db.Products.findAll({
                         where: {
@@ -31,7 +38,10 @@ module.exports = {
             include: [{
                 association: "subcategories",
                 include: [{
-                    association: "products"
+                    association: "products",
+                    include: [{
+                        association: "productImages"
+                    }]
                 }]
             }]
         })

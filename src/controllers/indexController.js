@@ -14,10 +14,15 @@ module.exports = {
                     discount: {
                         [Op.gte]: 5
                     }
-                }
+                },
+                include: [
+                    {
+                        association: "productImages"
+                    }
+                ]
             }
         )
-        .then(products => {        
+        .then(products => {      
                 res.render('index', {
                     sliderTitle : "Ofertas especiales",
                     sliderProducts: products,

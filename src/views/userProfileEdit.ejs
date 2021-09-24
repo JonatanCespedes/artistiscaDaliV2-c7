@@ -29,10 +29,10 @@
                 <input type="text" name="tel" placeholder="Ingresá tu teléfono" value="<%= user.phone ? user.phone : "" %>">
             </div>
             <div class="form-ad-input">
-                <input type="text" name="address" placeholder="Domicilio" value="<%= address.street ? address.street : "" %>">
+                <input type="text" name="address" placeholder="Domicilio" value="<%= address !== null && address.street ? address.street : "" %>">
             </div>
             <div class="form-ad-input">
-                <input type="text" name="pc" placeholder="Código postal" value="<%= address.postal_code ? address.postal_code : "" %>">
+                <input type="text" name="pc" placeholder="Código postal" value="<%= address !== null && address.postal_code ? address.postal_code : "" %>">
             </div>
             <div class="form-ad-input">
                 <select name="province" id="">
