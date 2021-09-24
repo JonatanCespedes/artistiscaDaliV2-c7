@@ -27,9 +27,7 @@
                 <label for="check">Recordar</label>
             </div>
 
-            <% if (locals.errorMsg ) { %>
-                    <small class="text-danger"><%= errorMsg %> </small>
-            <% } %>
+            <small class="text-danger"><%= (locals.errors && errors.custom && !errors.email && !errors.password)?errors.custom.msg: "" %> </small>
             <button type="submit" class="btn btn-ad-primary">
                 INGRESAR
             </button>

@@ -20,7 +20,7 @@ module.exports = (sequelize, dataTypes) => {
             allowNull: false,
             unique: true
         },
-        password: {
+        pass: {
             type: dataTypes.STRING(70),
             allowNull: false
         },
@@ -30,7 +30,10 @@ module.exports = (sequelize, dataTypes) => {
         rol: {
             type: dataTypes.INTEGER(2).UNSIGNED,
             allowNull: false
-        }
+        },
+        avatar:{
+            type: dataTypes.STRING(100)
+        },
     }
     let config = {
         tableName: "users",
