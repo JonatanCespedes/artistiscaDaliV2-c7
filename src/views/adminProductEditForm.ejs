@@ -19,7 +19,7 @@
                 <div class="col-12">
                     <select class="form-select" id="specificSizeSelect" name="category">
                       <option selected hidden value="">Categorias</option>
-                     <% categories.forEach(category => { %>
+                     <% locals.categories.forEach(category => { %>
                         <option value="<%- category.id %>" <%- locals.old && old.category == category.id ? "selected" : category.id == product.category ? "selected" : "" %>><%- category.name %></option>
                      <% }) %>
                     </select>
@@ -30,8 +30,8 @@
                 <div class="col-12">
                     <select class="form-select" id="specificSizeSelect" name="subcategory">
                       <option selected hidden value="">Subcategorias</option>
-                     <% subcategories.forEach(subcategory => { %>
-                        <option value="<%- subcategory%>" <%- locals.old && old.subcategory == subcategory ? "selected" : subcategory == product.subcategory ? "selected" : "" %>><%- subcategory %></option>
+                     <% locals.categories[0].subcategories.forEach(subcategory => { %>
+                        <option value="<%- subcategory%>" <%- locals.old && old.subcategory == subcategory ? "selected" : subcategory == product.subcategory ? "selected" : "" %>><%- subcategory.name %></option>
                      <% }) %>
                     </select>
                     <% if (locals.errors && errors.subcategory) { %>

@@ -52,17 +52,9 @@ module.exports = {
             }
             errors.push(image)
         }
-        res.send(errors)
+        
         if (errors.isEmpty()) {
 
-            let lastId = 1;
-        
-            products.forEach(product => {
-                if(product.id > lastId){
-                    lastId = product.id
-                }
-            });
-    
             let arrayImages = [];
             if(req.files){
                 req.files.forEach(image => {
@@ -73,27 +65,36 @@ module.exports = {
             let { name, 
                 price, 
                 discount,
-                category,
                 subcategory, 
                 description } = req.body;
             
-            let newProduct = {
-                id: lastId + 1,
+            db.Products.create({
                 name,
                 price,
                 description,
                 discount,
-                category,
-                subcategory,
-                image: arrayImages.length > 0 ? arrayImages : ["default-image.png"]
-            };
-    
-            products.push(newProduct);
-    
-            writeProductsJSON(products);
-    
-            res.redirect('/admin/products')
-
+                subcategoryId: subcategory,
+            })
+            .then(product => {
+                if (arrayImages.length > 0) {
+                    let images = arrayImages.map(image => {
+                        return {
+                            image: image,
+                            productId: product.id
+                        }
+                    })
+                    db.ProductImages.bulkCreate(images)
+                    .then(() => res.redirect('/admin/products'))
+                    .catch(err => console.log(err))
+                }else {
+                    db.ProductImages.create({
+                        image: "default-image.png",
+                        productId: product.id
+                    })
+                    .then(() => res.redirect('/admin/products'))
+                    .catch(err => console.log(err))
+                }
+            })
         } else {
             res.render('adminProductCreateForm', {
                 subcategories,
@@ -106,12 +107,14 @@ module.exports = {
        
     }, 
     productEdit: (req, res) => {
-        let product = products.find(product => product.id === +req.params.id)
-        res.render('adminProductEditForm', {
-            categories, 
-            subcategories,
-            product,
-            session: req.session
+        db.Products.findByPk(req.params.id)
+        .then(product => {
+            res.render('adminProductEditForm', {
+                //categories, 
+                //subcategories,
+                product,
+                session: req.session
+            })
         })
     },
     productUpdate: (req, res) => {
