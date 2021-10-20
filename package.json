@@ -5,10 +5,11 @@
   "scripts": {
     "start": "node ./src/bin/www"
   },
-  "nodemonConfig" : {
-    "ignore" : "src/data/*.json"
+  "nodemonConfig": {
+    "ignore": "src/data/*.json"
   },
   "dependencies": {
+    "axios": "^0.23.0",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",

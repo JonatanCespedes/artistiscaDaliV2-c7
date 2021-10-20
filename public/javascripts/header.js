@@ -28,6 +28,7 @@ function dropSearch(){
 }
 
 function dropSubCategoryMenu (id) {
+    console.log(id)
     let list = document.getElementById(`${id}`)
     list.classList.toggle("active")
     navBar.style.display = "none";

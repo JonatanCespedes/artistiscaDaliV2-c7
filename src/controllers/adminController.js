@@ -1,189 +1,213 @@
-const { validationResult } = require('express-validator');
-const fs = require('fs')
-const db = require('../database/models')
-
+const { validationResult } = require("express-validator");
+const fs = require("fs");
+const db = require("../database/models");
 
 module.exports = {
-    signin: (req, res) => {
-        res.render('adminLogin')
-    },
-    dashboard: (req, res) => {
-        res.render('adminIndex', {
-            session: req.session
-        })
-    }, 
-    products: (req, res) => {
-        db.Products.findAll()
-        .then(products => {
-            res.render('adminProducts', {
-                products,
-                session: req.session
-            })
-        })
-    }, 
-    productsCreate: (req, res) => {
-        db.Categories.findAll({
-            include: [{
-                association: "subcategories"
-            }]
-        })
-        .then(categories => {
-            let subcategories = []
-            categories.forEach(category => {
-                category.subcategories.forEach(subcategory => {
-                    subcategories.push(subcategory)
-                })
-            })
-            
-            res.render('adminProductCreateForm', {
-                categories,
-                subcategories,
-                session: req.session
-            })
-        })
-        .catch(err => console.log(err))
-    }, 
-    productStore: (req, res) => {
-        let errors = validationResult(req);
-        if (req.fileValidatorError) {
-            let image = {
-                param : "image",
-                msg: req.fileValidatorError
-            }
-            errors.push(image)
-        }
-        
-        if (errors.isEmpty()) {
+  signin: (req, res) => {
+    res.render("adminLogin");
+  },
+  dashboard: (req, res) => {
+    res.render("adminIndex", {
+      session: req.session,
+    });
+  },
+  products: (req, res) => {
+    db.Products.findAll().then((products) => {
+      res.render("adminProducts", {
+        products,
+        session: req.session,
+      });
+    });
+  },
+  productsCreate: (req, res) => {
+    db.Categories.findAll({
+      include: [
+        {
+          association: "subcategories",
+        },
+      ],
+    })
+      .then((categories) => {
+        let subcategories = [];
+        categories.forEach((category) => {
+          category.subcategories.forEach((subcategory) => {
+            subcategories.push(subcategory);
+          });
+        });
 
-            let arrayImages = [];
-            if(req.files){
-                req.files.forEach(image => {
-                    arrayImages.push(image.filename)
-                })
-            }
-    
-            let { name, 
-                price, 
-                discount,
-                subcategory, 
-                description } = req.body;
-            
-            db.Products.create({
-                name,
-                price,
-                description,
-                discount,
-                subcategoryId: subcategory,
-            })
-            .then(product => {
-                if (arrayImages.length > 0) {
-                    let images = arrayImages.map(image => {
-                        return {
-                            image: image,
-                            productId: product.id
-                        }
-                    })
-                    db.ProductImages.bulkCreate(images)
-                    .then(() => res.redirect('/admin/products'))
-                    .catch(err => console.log(err))
-                }else {
-                    db.ProductImages.create({
-                        image: "default-image.png",
-                        productId: product.id
-                    })
-                    .then(() => res.redirect('/admin/products'))
-                    .catch(err => console.log(err))
-                }
-            })
-        } else {
-            res.render('adminProductCreateForm', {
-                subcategories,
-                categories, 
-                errors : errors.mapped(),
-                old : req.body,
-                session: req.session
-            })
-        }
-       
-    }, 
-    productEdit: (req, res) => {
-        db.Products.findByPk(req.params.id)
-        .then(product => {
-            res.render('adminProductEditForm', {
-                //categories, 
-                //subcategories,
-                product,
-                session: req.session
-            })
-        })
-    },
-    productUpdate: (req, res) => {
-        let errors = validationResult(req);
-        if (req.fileValidatorError) {
-            let image = {
-                param : "image",
-                msg: req.fileValidatorError
-            }
-            errors.push(image)
-        }
-        if (errors.isEmpty()) {
-        let { name, 
-			price, 
-			discount,
-			category,
-            subcategory, 
-			description } = req.body;
-
-        let arrayImages = [];
-        if(req.files){
-            req.files.forEach(image => {
-                arrayImages.push(image.filename)
-            })
-        }
-    
-        products.forEach(product => {
-            if(product.id === +req.params.id){
-                product.id = product.id,
-                product.name = name,
-                product.price = price,
-                product.description = description,
-                product.discount = discount,
-                product.category = category,
-                product.subcategory = subcategory
-                product.image = arrayImages.length > 0 ? arrayImages : product.image 
-            }
-        })
-
-        writeProductsJSON(products);
-
-        res.redirect("/admin/products")
-        
-        } else {
-            let product = products.find(product => product.id === +req.params.id)
-            
-            res.render('adminProductEditForm', {
-                product,
-                subcategories,
-                categories, 
-                errors : errors.mapped(),
-                old : req.body,
-                session: req.session
-            })
-        }
-    },
-    productDestroy: (req, res) => {
-		products.forEach(product => {
-            if(product.id === +req.params.id){
-                fs.existsSync("./public/images/productos/", product.image[0])
-                ? fs.unlinkSync("./public/images/productos/" + product.image[0])
-                : console.log("-- No se encontró")
-                let productToDestroy = products.indexOf(product);
-                products.splice(productToDestroy, 1)
-            }
-        })
-
-        writeProductsJSON(products);
-
-        res.redirect("/admin/products")
+        res.render("adminProductCreateForm", {
+          categories,
+          subcategories,
+          session: req.session,
+        });
+      })
+      .catch((err) => console.log(err));
+  },
+  productStore: (req, res) => {
+    let errors = validationResult(req);
+    if (req.fileValidatorError) {
+      let image = {
+        param: "image",
+        msg: req.fileValidatorError,
+      };
+      errors.push(image);
     }
-}
+
+    if (errors.isEmpty()) {
+      let arrayImages = [];
+      if (req.files) {
+        req.files.forEach((image) => {
+          arrayImages.push(image.filename);
+        });
+      }
+
+      let { name, price, discount, subcategory, description } = req.body;
+
+      db.Products.create({
+        name,
+        price,
+        description,
+        discount,
+        subcategoryId: subcategory,
+      }).then((product) => {
+        if (arrayImages.length > 0) {
+          let images = arrayImages.map((image) => {
+            return {
+              image: image,
+              productId: product.id,
+            };
+          });
+          db.ProductImages.bulkCreate(images)
+            .then(() => res.redirect("/admin/products"))
+            .catch((err) => console.log(err));
+        } else {
+          db.ProductImages.create({
+            image: "default-image.png",
+            productId: product.id,
+          })
+            .then(() => res.redirect("/admin/products"))
+            .catch((err) => console.log(err));
+        }
+      });
+    } else {
+      res.render("adminProductCreateForm", {
+        subcategories,
+        categories,
+        errors: errors.mapped(),
+        old: req.body,
+        session: req.session,
+      });
+    }
+  },
+  productEdit: (req, res) => {
+    db.Products.findByPk(req.params.id).then((product) => {
+      res.render("adminProductEditForm", {
+        product,
+        session: req.session,
+      });
+    });
+  },
+  productUpdate: (req, res) => {
+    let errors = validationResult(req);
+    if (req.fileValidatorError) {
+      let image = {
+        param: "image",
+        msg: req.fileValidatorError,
+      };
+      errors.push(image);
+    }
+    if (errors.isEmpty()) {
+      let { name, price, discount, category, subcategory, description } =
+        req.body;
+
+      let arrayImages = [];
+      if (req.files) {
+        req.files.forEach((image) => {
+          arrayImages.push(image.filename);
+        });
+      }
+
+      db.Products.update(
+        {
+          name,
+          price,
+          discount,
+          category,
+          subcategory,
+          description,
+        },
+        {
+          where: {
+            id: req.params.id,
+          },
+        }
+      ).then((result) => {
+        if (result) {
+          if (arrayImages.length > 0) {
+            let images = arrayImages.map((image) => {
+              return {
+                image: image,
+                productId: req.params.id,
+              };
+            });
+            db.ProductImages.findAll({
+              where: {
+                productId: req.params.id,
+              },
+            }).then((result) => {
+              result.forEach((image) => {
+                fs.existsSync("./public/images/productos/", image.image[0])
+                  ? fs.unlinkSync("./public/images/productos/" + image.image[0])
+                  : console.log("-- No se encontró");
+              });
+              db.ProductImages.destroy({
+                where: {
+                  productId: req.params.id,
+                },
+              }).then(
+              db.ProductImages.bulkCreate(images).then(
+                res.redirect("/admin/products")
+              )
+            )
+          });
+          }
+          res.redirect("/admin/products");
+        }
+      });
+
+    } else {
+      db.Products.findByPk(req.params.id).then(product => {
+        res.render("adminProductEditForm", {
+          product,
+          errors: errors.mapped(),
+          old: req.body,
+          session: req.session,
+        });
+      })
+    }
+  },
+  productDestroy: (req, res) => {
+    db.ProductImages.findAll({
+      where: {
+        productId: req.params.id,
+      },
+    }).then((result) => {
+      result.forEach((image) => {
+        fs.existsSync("./public/images/productos/", image.image[0])
+          ? fs.unlinkSync("./public/images/productos/" + image.image[0])
+          : console.log("-- No se encontró");
+      });
+      db.ProductImages.destroy({
+        where: {
+          productId: req.params.id,
+        },
+      }).then((result) => {
+        db.Products.destroy({
+          where: {
+            id: req.params.id,
+          },
+        }).then(res.redirect("/admin/products"));
+      });
+    });
+  },
+};

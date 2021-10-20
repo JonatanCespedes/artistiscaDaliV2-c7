@@ -14,6 +14,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var productsRouter = require('./routes/products');
 var adminRouter = require('./routes/admin');
+var apiRouter = require('./routes/apiRoutes.js');
 
 var app = express();
 
@@ -37,14 +38,12 @@ app.use(session({
 app.use(localsCheck)
 app.use(categoriesHeader)
 
-
-
-
 /* Rutas */
 app.use('/', indexRouter); // Home - contact
 app.use('/users', usersRouter); // Login - register - Profile
 app.use('/products', productsRouter); // Categories - ProductDetail - CRUD
 app.use('/admin', adminRouter); // Admin
+app.use('/api', apiRouter); // APIs
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
