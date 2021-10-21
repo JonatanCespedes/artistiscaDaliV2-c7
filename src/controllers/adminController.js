@@ -4,16 +4,16 @@ const db = require("../database/models");
 
 module.exports = {
   signin: (req, res) => {
-    res.render("adminLogin");
+    res.render("admin/adminLogin");
   },
   dashboard: (req, res) => {
-    res.render("adminIndex", {
+    res.render("admin/adminIndex", {
       session: req.session,
     });
   },
   products: (req, res) => {
     db.Products.findAll().then((products) => {
-      res.render("adminProducts", {
+      res.render("admin/products/adminProducts", {
         products,
         session: req.session,
       });
@@ -28,16 +28,8 @@ module.exports = {
       ],
     })
       .then((categories) => {
-        let subcategories = [];
-        categories.forEach((category) => {
-          category.subcategories.forEach((subcategory) => {
-            subcategories.push(subcategory);
-          });
-        });
-
-        res.render("adminProductCreateForm", {
+        res.render("admin/products/adminProductCreateForm", {
           categories,
-          subcategories,
           session: req.session,
         });
       })
@@ -90,7 +82,7 @@ module.exports = {
         }
       });
     } else {
-      res.render("adminProductCreateForm", {
+      res.render("admin/products/adminProductCreateForm", {
         subcategories,
         categories,
         errors: errors.mapped(),
@@ -101,7 +93,7 @@ module.exports = {
   },
   productEdit: (req, res) => {
     db.Products.findByPk(req.params.id).then((product) => {
-      res.render("adminProductEditForm", {
+      res.render("admin/products/adminProductEditForm", {
         product,
         session: req.session,
       });
@@ -177,7 +169,7 @@ module.exports = {
 
     } else {
       db.Products.findByPk(req.params.id).then(product => {
-        res.render("adminProductEditForm", {
+        res.render("admin/products/adminProductEditForm", {
           product,
           errors: errors.mapped(),
           old: req.body,

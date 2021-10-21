@@ -1,0 +1,34 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+        <%- include('../partials/headAdmin') %>
+    <body>
+        <%- include('../partials/headerAdmin') %>
+        
+        <div class="container" style="max-width: 700px;">
+          <div class="row">
+            <%- include('../partials/adminSidebar') %>
+            <form class="row g-3" action="/admin/categories/edit/<%= product.id%>?_method=PUT" method="POST" enctype="multipart/form-data">
+                <div class="col-12">
+                    <label for="inputName" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="inputName" name="name" value="<%= locals.old ? old.name : product.name %>">
+                    <% if (locals.errors && errors.name) { %>
+                        <small class="text-danger"><%= errors.name.msg %></small>
+                    <% } %>
+                </div>
+                <div class="col-12">
+                    <label for="inputImage" class="form-label">Imagen</label>
+                    <input type="file" name="image" class="form-control" aria-label="file example" id="inputImage">
+                    <% if (locals.errors && errors.image) { %>
+                        <small class="text-danger"><%= errors.image.msg %> </small>
+                    <% } %>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    GUARDAR
+                </button>
+            </form>
+          </div>
+        </div>
+        <%- include('../partials/adminScripts') %>
+        </body>
+    </html>
