@@ -81,9 +81,9 @@
 <nav class="nav_menu">        
 <!-- Buscador mobile -->
 
-<form action="#" class="search-form-mobile" id="search">
+<form action="/products/search" class="search-form-mobile" id="search">
     <div class="search-bar">
-        <input type="search" name="busqueda" id="" placeholder="Buscar">
+        <input type="search" name="search" id="" placeholder="Buscar">
         <button type="submit"><i class="fas fa-search"></i></button>
     </div>
 </form>
@@ -101,4 +101,11 @@
     </div>
     <% }) %>
 </header>
+<% if (typeof session.user != "undefined") { %>
+    <% if (session.user.rol === 1) { %>
+        <div class="menu-user-admin">
+            <a href="/admin/index">Administrar sitio</a>
+        </div>
+    <% } %>
+<% } %>
 

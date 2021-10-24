@@ -28,10 +28,10 @@ module.exports = {
     if (errors.isEmpty()) {
       db.Categories.create({
         name: req.body.name,
-        image: req.file ? req.file.filename : "default-image.png",
+        banner: req.file ? req.file.filename : "default-image.png",
       }).then((result) => {
-        res.redirect("/admin/products");
-      });
+        res.redirect("/admin/categories");
+      }).catch(error => console.log(error))
     } else {
       res.render("adminProductCreateForm", {
         errors: errors.mapped(),
@@ -62,7 +62,7 @@ module.exports = {
         db.Categories.update(
           {
             name: req.body.name,
-            image: req.file ? req.file.filename : category.image,
+            banner: req.file ? req.file.filename : category.image,
           },
           {
             where: {
@@ -70,7 +70,7 @@ module.exports = {
             },
           }
         ).then((result) => {
-          res.redirect("/admin/products");
+          res.redirect("/admin/categories");
         });
       });
     } else {
@@ -91,8 +91,8 @@ module.exports = {
       },
     }).then((result) => {
       db.Categories.findByPk(req.params.id).then((category) => {
-        fs.existsSync("./public/images/productos/", category.image)
-          ? fs.unlinkSync("./public/images/productos/" + category.image)
+        fs.existsSync("./public/images/categorias/", category.banner)
+          ? fs.unlinkSync("./public/images/categorias/" + category.banner)
           : console.log("-- No se encontró");
         db.Categories.destroy({
           where: {

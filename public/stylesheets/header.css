@@ -165,6 +165,18 @@ header {
     opacity: 0.8;
 }
 
+.menu-user-admin {
+    width: 8rem;
+    background-color: white;
+    border-radius: 10px;
+    position: fixed;
+    right: 20px;
+    padding: 0.5rem;
+    margin-top: 10px;
+    font-family: var(--font_poppins);
+    z-index: 999;
+}
+
 /* MEDIA QUERIES */
 /* Tablet */
 @media (min-width: 768px){

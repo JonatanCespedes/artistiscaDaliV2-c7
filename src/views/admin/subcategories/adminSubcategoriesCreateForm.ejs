@@ -1,14 +1,14 @@
 
     <!DOCTYPE html>
 <html lang="en">
-    <%- include('partials/headAdmin') %>
+    <%- include('../partials/headAdmin') %>
 <body>
-    <%- include('partials/headerAdmin') %>
+    <%- include('../partials/headerAdmin') %>
     
     <div class="container" style="max-width: 700px;">
       <div class="row">
-        <%- include('partials/adminSidebar') %>
-        <form class="row g-3" action="/admin/products/create" method="POST" enctype="multipart/form-data">
+        <%- include('../partials/adminSidebar') %>
+        <form class="row g-3" action="/admin/subcategories/create" method="POST" enctype="multipart/form-data">
             
             <div class="col-12">
                 <label for="inputName" class="form-label">Nombre</label>
@@ -29,44 +29,13 @@
                     <small class="text-danger"><%= errors.category.msg %></small>
                 <% } %>
             </div>
-            <div class="col-12">
-                <select class="form-select subcategorySelect" id="specificSizeSelect" name="subcategory">
-                  <option selected hidden value="">Subcategorias</option>
-                    
-                </select>
-                <% if (locals.errors && errors.subcategory) { %>
-                    <small class="text-danger"><%= errors.subcategory.msg %></small>
-                <% } %>
-            </div>
-            <div class="col-12">
-                <label for="inputPrice" class="form-label">Precio</label>
-                <input type="number" class="form-control" id="inputPrice" name="price" value="<%= locals.old && old.price %>">
-                <% if (locals.errors && errors.price) { %>
-                    <small class="text-danger"><%= errors.price.msg %></small>
-                <% } %>
-            </div>
-            <div class="col-12">
-                <label for="inputDiscount" class="form-label">Descuento</label>
-                <input type="number" class="form-control" id="inputDiscount" name="discount" value="<%= locals.old && old.discount %>">
-            </div>
-            <div class="col-12">
-                <label for="inputImage" class="form-label">Imagen</label>
-                <input type="file" name="image" class="form-control" aria-label="file example" id="inputImage" multiple>
-                <% if (locals.errors && errors.image) { %>
-                    <small class="text-danger"><%= errors.image.msg %> </small>
-                <% } %>
-            </div>
-            <div class="col-12">
-                <label for="validationTextarea" class="form-label">Descripción</label>
-                <textarea class="form-control" id="validationTextarea" name="description"><%= locals.old && old.description %></textarea>
-            </div>
             <button type="submit" class="btn btn-primary">
                 CREAR
             </button>
         </form>
       </div>
     </div>
-    <%- include('partials/adminScripts') %>
+    <%- include('../partials/adminScripts') %>
     <script src="/javascripts/adminCategories.js"></script>
     </body>
 </html>

@@ -44,4 +44,10 @@ ul {
     color: var(--primary)    
 }
 
+.subtitle {
+    font-family: var(--font-poppins);
+    color: var(--primary);
+    font-size: 2rem;
+}
+
 

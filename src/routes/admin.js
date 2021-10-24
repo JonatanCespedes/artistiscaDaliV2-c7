@@ -10,6 +10,7 @@ let {
     productDestroy,
     productUpdate} = require('../controllers/adminController');
 let upload = require('../middlewares/uploadFiles');
+let uploadCategoriesFile = require('../middlewares/uploadCategoriesFiles');
 let productsValidator = require('../validations/productsValidator');
 let userAdminCheck = require('../middlewares/userAdminCheck');
 let userSession = require('../middlewares/userSession')
@@ -51,11 +52,11 @@ router.get('/categories', userSession, userAdminCheck,categories);
 
 /* Create Category*/
 router.get('/categories/create', userSession, userAdminCheck,categoryCreate);
-router.post('/categories/create', upload.single('image'), categoriesValidator, categoryStore);
+router.post('/categories/create', uploadCategoriesFile.single('image'), categoriesValidator, categoryStore);
 
 /* Edit Category*/
 router.get('/categories/edit/:id', userSession, userAdminCheck,categoryEdit);
-router.put('/categories/edit/:id', upload.single('image'), categoriesValidator, categoryUpdate);
+router.put('/categories/edit/:id', uploadCategoriesFile.single('image'), categoriesValidator, categoryUpdate);
 
 /* Delete Category*/
 router.delete('/categories/delete/:id', categoryDestroy);

@@ -5,14 +5,14 @@ const db = require("../database/models");
 module.exports = {
   subcategories: (req, res) => {
     db.Subcategories.findAll().then((subcategories) => {
-      res.render("admin/categories/adminSubcategories", {
+      res.render("admin/subcategories/adminSubcategories", {
         subcategories,
         session: req.session,
       });
     });
   },
   subcategoryCreate: (req, res) => {
-    res.render("admin/subcategories/adminSubategoriesCreateForm", {
+    res.render("admin/subcategories/adminSubcategoriesCreateForm", {
       session: req.session,
     });
   },
@@ -28,7 +28,7 @@ module.exports = {
     if (errors.isEmpty()) {
       db.Subcategories.create({
         name: req.body.name,
-        image: req.file ? req.file.filename : "default-image.png",
+        categoryId: req.body.category,
       }).then((result) => {
         res.redirect("/admin/subcategories");
       });

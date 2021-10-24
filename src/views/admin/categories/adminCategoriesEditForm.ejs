@@ -8,10 +8,10 @@
         <div class="container" style="max-width: 700px;">
           <div class="row">
             <%- include('../partials/adminSidebar') %>
-            <form class="row g-3" action="/admin/categories/edit/<%= product.id%>?_method=PUT" method="POST" enctype="multipart/form-data">
+            <form class="row g-3" action="/admin/categories/edit/<%=category.id%>?_method=PUT" method="POST" enctype="multipart/form-data">
                 <div class="col-12">
                     <label for="inputName" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" id="inputName" name="name" value="<%= locals.old ? old.name : product.name %>">
+                    <input type="text" class="form-control" id="inputName" name="name" value="<%= locals.old ? old.name : category.name %>">
                     <% if (locals.errors && errors.name) { %>
                         <small class="text-danger"><%= errors.name.msg %></small>
                     <% } %>
