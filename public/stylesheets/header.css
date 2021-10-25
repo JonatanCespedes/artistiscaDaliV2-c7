@@ -144,6 +144,8 @@ header {
 .subcategory_menu.active {
     display: block;
     background-color: white;
+    position: fixed;
+    width: 100%;
 }
 
 .subcategory_menu .subcategory_header {
@@ -166,15 +168,16 @@ header {
 }
 
 .menu-user-admin {
-    width: 8rem;
+    width: 10rem;
     background-color: white;
     border-radius: 10px;
     position: fixed;
-    right: 20px;
+    right: 200px;
     padding: 0.5rem;
     margin-top: 10px;
     font-family: var(--font_poppins);
     z-index: 999;
+    box-shadow: 0 0 10px var(--primary);
 }
 
 /* MEDIA QUERIES */

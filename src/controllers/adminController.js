@@ -185,8 +185,8 @@ module.exports = {
       },
     }).then((result) => {
       result.forEach((image) => {
-        fs.existsSync("./public/images/productos/", image.image[0])
-          ? fs.unlinkSync("./public/images/productos/" + image.image[0])
+        fs.existsSync("./public/images/productos/", image.image)
+          ? fs.unlinkSync("./public/images/productos/" + image.image)
           : console.log("-- No se encontró");
       });
       db.ProductImages.destroy({
