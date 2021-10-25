@@ -17,7 +17,7 @@
                     <% } %>
                 </div>
                 <div class="col-12">
-                    <select class="form-select" id="specificSizeSelect" name="category">
+                    <select class="form-select categorySelect" id="specificSizeSelect" name="category">
                       <option selected hidden value="">Categorias</option>
                      <% locals.categories.forEach(category => { %>
                         <option value="<%- category.id %>" <%- locals.old && old.category == category.id ? "selected" : category.id == product.category ? "selected" : "" %>><%- category.name %></option>
@@ -28,12 +28,10 @@
                     <% } %>
                 </div>
                 <div class="col-12">
-                    <select class="form-select" id="specificSizeSelect" name="subcategory">
-                      <option selected hidden value="">Subcategorias</option>
-                     <% locals.categories[0].subcategories.forEach(subcategory => { %>
-                        <option value="<%- subcategory%>" <%- locals.old && old.subcategory == subcategory ? "selected" : subcategory == product.subcategory ? "selected" : "" %>><%- subcategory.name %></option>
-                     <% }) %>
-                    </select>
+                    <select class="form-select subcategorySelect" id="specificSizeSelect" name="subcategory">
+                        <option selected hidden value="">Subcategorias</option>
+                          
+                      </select>
                     <% if (locals.errors && errors.subcategory) { %>
                         <small class="text-danger"><%= errors.subcategory.msg %></small>
                     <% } %>
@@ -67,5 +65,6 @@
           </div>
         </div>
         <%- include('../partials/adminScripts') %>
+        <script src="/javascripts/adminCategories.js"></script>
         </body>
     </html>
