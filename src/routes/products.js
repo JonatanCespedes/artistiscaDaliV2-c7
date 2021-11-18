@@ -1,6 +1,7 @@
 let express = require('express');
 let router = express.Router();
-let { detail, category, subcategory, search } = require('../controllers/productsController')
+let { detail, category, subcategory, search, cart } = require('../controllers/productsController')
+let userSession = require('../middlewares/userSession')
 
 /* GET - Product Detail */
 router.get('/detail/:id', detail)
@@ -10,5 +11,7 @@ router.get('/category/:id', category)
 router.get('/subcategory/:id', subcategory)
 /* GET - List products for search */
 router.get('/search', search)
+/* GET - Product Cart */
+router.get('/cart', userSession, cart)
 
 module.exports = router

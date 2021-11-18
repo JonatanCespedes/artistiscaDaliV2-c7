@@ -41,7 +41,7 @@ module.exports = {
     }
   },
   subcategoryEdit: (req, res) => {
-    db.Categories.findByPk(req.params.id).then((category) => {
+    db.Subcategories.findByPk(req.params.id).then((subcategory) => {
       res.render("admin/subcategories/adminSubcategoriesEditForm", {
         subcategory,
         session: req.session,
@@ -58,11 +58,10 @@ module.exports = {
       errors.push(image);
     }
     if (errors.isEmpty()) {
-      db.Subategories.findByPk(req.params.id).then((subcategory) => {
-        db.Subategories.update(
+        db.Subcategories.update(
           {
             name: req.body.name,
-            image: req.file ? req.file.filename : subcategory.image,
+            categoryId: req.body.categoryId
           },
           {
             where: {
@@ -72,7 +71,6 @@ module.exports = {
         ).then((result) => {
           res.redirect("/admin/subcategories");
         });
-      });
     } else {
       db.Subcategories.findByPk(req.params.id).then((subcategory) => {
         res.render("admin/subcategories/adminSubcategoriesEditForm", {
@@ -85,11 +83,34 @@ module.exports = {
     }
   },
   subcategoryDestroy: (req, res) => {
-    db.Products.destroy({
+    db.Products.findAll({
       where: {
-        subcategoryId: req.params.id,
-      },
-    }).then((result) => {
+        subcategoryId: req.params.id
+      }
+    }).then(products => {
+      products.forEach(product => {
+        db.ProductImages.findAll({
+          where: {
+            productId: product.id
+          }
+        }).then(images => {
+          images.forEach((image) => {
+            fs.existsSync("./public/images/productos/", image.image)
+              ? fs.unlinkSync("./public/images/productos/" + image.image)
+              : console.log("-- No se encontró");
+          });
+        })
+        db.ProductImages.destroy({
+          where: {
+            productId: product.id
+          }
+        }).then((result)=> {})
+      })
+      db.Products.destroy({
+        where: {
+          subcategoryId: req.params.id,
+        },
+      }).then((result) => {
         db.Subcategories.destroy({
           where: {
             id: req.params.id,
@@ -98,5 +119,6 @@ module.exports = {
           return res.redirect("/admin/subcategories");
         });
       });
+    })
   },
 };
