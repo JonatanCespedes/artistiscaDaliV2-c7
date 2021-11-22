@@ -4,7 +4,7 @@ module.exports = {
   addToCart: (req, res) => {
     let productID = req.params.product;
     let quantity = req.params.quantity;
-    let userId = req.session.user.id;
+    let userId = req.params.user;
 
     if (userId) {
       // Si hay usuaria en sesion
@@ -15,7 +15,7 @@ module.exports = {
         },
         include: [
           {
-            association: "order_items",
+            association: "order_items", include: [{association: "products"}]
           },
         ],
       }).then((result) => {
@@ -70,7 +70,7 @@ module.exports = {
               );
           }
         } else {
-          // Si no existe la order la creo
+          // Si no existe la orden, la creo
           db.Orders.create({
             userId,
             state: "PENDING",
@@ -81,7 +81,7 @@ module.exports = {
                 db.Order_items.create({
                   orderId: order.id,
                   productId: productID,
-                  quantity: quantity,
+                  quantity: +quantity,
                 }).then((order_item) => {
                   res.json({
                     meta: {
@@ -103,7 +103,7 @@ module.exports = {
   },
   removeOneFromCart: (req, res) => {
     let itemId = req.params.item;
-    let user = req.session.user.id;
+    let user = req.params.user;
     //Busco la orden asociada al usuario
     db.Orders.findOne({
       where: {
@@ -171,7 +171,7 @@ module.exports = {
   },
   removeAllFromCart: (req, res) => {
     let itemId = +req.params.item;
-    let user = req.session.user.id;
+    let user = req.params.user;
     //Busco la orden asociada al usuario
     db.Orders.findOne({
       where: {
@@ -200,6 +200,7 @@ module.exports = {
         })
           .then((result) =>
             res.json({
+              status: 200,
               msg: "Item removed absolutely",
             })
           )
@@ -212,7 +213,7 @@ module.exports = {
     });
   },
   clearCart: (req, res) => {
-    let user = req.session.user.id;
+    let user = req.params.user;
     //Busco la orden asociada al usuario
     db.Orders.findOne({
       where: {
@@ -241,6 +242,7 @@ module.exports = {
             },
           }).then((finalResult) => {
             res.json({
+              status: 200,
               msg: "Order deleted ok!",
             });
           });
@@ -253,7 +255,8 @@ module.exports = {
     });
   },
   productsInCart: (req, res) => {
-    let user = req.session.user.id
+    let user = req.params.user
+    
     db.Orders.findOne({
       where: {
         userId: user,
@@ -270,11 +273,15 @@ module.exports = {
         },
       ],
     }).then((order) => {
-      console.log(order)
       if(order){
         res.json({
           data: order,
         });
+      }else{
+        res.json({
+          status: 404,
+          msg: "No hay una orden creada"
+        })
       }
     }).catch(error => console.log(error))
   },

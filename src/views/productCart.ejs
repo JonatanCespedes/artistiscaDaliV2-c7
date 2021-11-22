@@ -29,9 +29,9 @@
 
                     <!-- PRODUCTOS -->
                     <div>
-                        <button class="clear-cart" onclick="clearCart()">
+                        <button class="clear-cart" onclick="clearCart(`<%=user%>`)">
                             Vaciar carrito
-                        </button>
+                        </button>  
                     </div>
                     <section class="productos" id="contenedor-productos">
                        <% products.forEach(product => { %>
@@ -47,18 +47,18 @@
                                         <span class="precio-sumado">Precio total: $<%- (Number(product.price) * Number(product.quantity))%> </span>
                                     </div>
                                     <div>
-                                        <button class="clear-cart" onclick="removeAll(`<%- product.id %>`)">
+                                        <button class="clear-cart" onclick="removeAll(`<%- product.id %>`, `<%= session.user.id %>`)">
                                             Quitar del carrito
                                         </button>
                                     </div>
                                     <div class="productNumber">
                                         <label for="cantidad">Cantidad</label>
                                         <div class="counter">
-                                            <button type="button" class="btn-subtract" onclick="removeOne(`<%- product.id %>`)">
+                                            <button type="button" class="btn-subtract" onclick="removeOne(`<%- product.id %>`, `<%= session.user.id %>`)">
                                                 -
                                             </button>
                                                 <div><%- product.quantity %></div>      
-                                            <button type="button" id="btn-add" onclick="addToCart(`<%- product.id %>`)">
+                                            <button type="button" id="btn-add" onclick="addToCart(`<%= product.id %>`, 1,`<%= session.user.id %>`)">
                                                 +
                                             </button>
                                         </div>

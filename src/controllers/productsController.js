@@ -2,7 +2,7 @@ const db = require("../database/models");
 const { Op } = require("sequelize");
 let axios = require('axios')
 
-const BASE_URL = "http://localhost:3000/api/";
+const BASE_URL = "http://localhost:3000/api";
 
 module.exports = {
   detail: (req, res) => {
@@ -54,6 +54,7 @@ module.exports = {
       .then((category) => {
         let subcategories = category.subcategories;
         let products = [];
+        console.log(req.session.user.id)
         subcategories.forEach((subcategory) => {
           subcategory.products.forEach((product) => products.push(product));
         });
@@ -61,6 +62,7 @@ module.exports = {
           category,
           products,
           session: req.session,
+          user: req.session.user.id,
         });
       })
       .catch((err) => console.log(err));
@@ -106,7 +108,11 @@ module.exports = {
       }))
   },
   cart: (req, res) => {
-    axios.get(`${BASE_URL}/cart`)
+    let user = req.session.user.id
+    axios({
+      method: 'get',
+      url: `http://localhost:3000/api/cart/${user}`,
+    })
     .then(response =>{
       let products = response.data.data?.order_items.map(item => {
         return {
@@ -116,9 +122,11 @@ module.exports = {
       })
       res.render('productCart', {
         session: req.session,
-        products: products !== undefined ? products : []
+        products: products !== undefined ? products : [],
+        user: req.session.user.id
       })}
       
     )
+    .catch(error => res.send(error))
   }
 };

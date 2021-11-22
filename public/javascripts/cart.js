@@ -17,8 +17,10 @@ function radio(x){
     let $clearCart = document.querySelector('#clearCart')
     let $addToCartOk = document.querySelector('#addToCartOk')
 
-    function addToCart (productId, quantity = 1){
-        fetch(`${BASE_URL}/api/cart/${productId}/${quantity}`, {method: "POST"})
+    function addToCart (productId, quantity = 1, user){
+        console.log(user)
+        console.log(productId)
+        fetch(`${BASE_URL}/api/cart/${productId}/${quantity}/${user}`, {method: "POST"})
         .then(res => {
             if(res.ok){
                 return res.json()
@@ -29,14 +31,17 @@ function radio(x){
             }
         })
         .then(result => {
-            if(result.status === 200){
+            console.log(result)
+            if(result.status === 200 || result.status === 201){
                 alert('Producto agregado')
+                window.location.reload()
             }
         })
         .catch(error => alert(`${error.errorMsg}`))
     }
-    function removeOne (productId){
-        fetch(`${BASE_URL}/api/cart/removeOne/${productId}`, {method: "DELETE"})
+
+    function removeOne (productId, user){
+        fetch(`${BASE_URL}/api/cart/removeOne/${productId}/${user}`, {method: "DELETE"})
         .then(res => {
             if(res.ok){
                 return res.json()
@@ -56,8 +61,8 @@ function radio(x){
         .catch(error => alert(`${error.errorMsg}`))
     }
 
-    function removeAll (productId){
-        fetch(`${BASE_URL}/api/cart/removeAll/${productId}`, {method: "DELETE"})
+    function removeAll (productId, user){
+        fetch(`${BASE_URL}/api/cart/removeAll/${productId}/${user}`, {method: "DELETE"})
         .then(res => {
             if(res.ok){
                 return res.json()
@@ -77,8 +82,8 @@ function radio(x){
         .catch(error => alert(`${error.errorMsg}`))
     }
 
-    function clearCart (){
-        fetch(`${BASE_URL}/api/cart/clearCart`, {method: "DELETE"})
+    function clearCart (user){
+        fetch(`${BASE_URL}/api/cart/clearCart/${user}`, {method: "DELETE"})
         .then(res => {
             if(res.ok){
                 return res.json()

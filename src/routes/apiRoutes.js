@@ -6,10 +6,10 @@ let orderController = require('../controllers/api/orderController')
 router.get('/categories', controller.allCategories);
 router.get('/categories/:id', controller.oneCategory);
 /* Cart */
-router.post('/cart/:product/:quantity', orderController.addToCart)
-router.get('/cart', orderController.productsInCart)
-router.delete('/cart/removeOne/:item', orderController.removeOneFromCart)
-router.delete('/cart/removeAll/:item', orderController.removeAllFromCart)
-router.delete('/cart/clearCart', orderController.clearCart)
+router.post('/cart/:product/:quantity/:user', orderController.addToCart)
+router.get('/cart/:user', orderController.productsInCart)
+router.delete('/cart/removeOne/:item/:user', orderController.removeOneFromCart)
+router.delete('/cart/removeAll/:item/:user', orderController.removeAllFromCart)
+router.delete('/cart/clearCart/:user', orderController.clearCart)
 
 module.exports = router;

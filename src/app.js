@@ -4,10 +4,11 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 let methodOverride = require('method-override');
-let session = require('express-session')
+
 var express = require('express');
 const localsCheck = require('./middlewares/localsCheck')
 let categoriesHeader = require('./middlewares/categoriesHeader')
+var cookieSession = require('cookie-session')
 
 /* Enrutadores */
 var indexRouter = require('./routes/index');
@@ -30,13 +31,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(methodOverride('_method'));
-app.use(session({ 
-  secret: "mySecret", 
-  resave: false, 
-  saveUninitialized: true
-}));
 app.use(localsCheck)
 app.use(categoriesHeader)
+app.use(cookieSession({
+  name: 'session',
+  keys: ["user"],
+
+  // Cookie Options
+  maxAge: 24 * 60 * 60 * 1000 // 24 hours
+}))
 
 /* Rutas */
 app.use('/', indexRouter); // Home - contact
