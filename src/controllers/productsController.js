@@ -26,6 +26,7 @@ module.exports = {
           sliderProducts: products,
           product,
           session: req.session,
+          user: req.session.user.id
         });
       });
     });
@@ -88,6 +89,7 @@ module.exports = {
             category,
             products: subcategory.products,
             session: req.session,
+            user: req.session.user.id
           })
         );
       })

@@ -18,8 +18,6 @@ function radio(x){
     let $addToCartOk = document.querySelector('#addToCartOk')
 
     function addToCart (productId, quantity = 1, user){
-        console.log(user)
-        console.log(productId)
         fetch(`${BASE_URL}/api/cart/${productId}/${quantity}/${user}`, {method: "POST"})
         .then(res => {
             if(res.ok){
@@ -31,7 +29,6 @@ function radio(x){
             }
         })
         .then(result => {
-            console.log(result)
             if(result.status === 200 || result.status === 201){
                 alert('Producto agregado')
                 window.location.reload()
@@ -73,7 +70,7 @@ function radio(x){
             }
         })
         .then(result => {
-            console.log(result)
+            
             if(result.status === 200){
                 alert('Producto Eliminado')
                 window.location.reload()
@@ -94,7 +91,7 @@ function radio(x){
             }
         })
         .then(result => {
-            console.log(result)
+            
             if(result.status === 200){
                 alert('Producto Eliminado')
                 window.location.reload()

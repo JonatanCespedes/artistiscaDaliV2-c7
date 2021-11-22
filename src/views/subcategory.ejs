@@ -38,7 +38,7 @@
                         <h4 class="productPrice">$<%- product.price %></h4>
                         </a>
                         <% if (session.user !== undefined) { %>
-                                <div class="btn btn-ad-primary" onclick="addToCart(`<%- product.id %>`, 1,`<%- session.user.id %>`)">
+                                <div class="btn btn-ad-primary" onclick="addToCart(`<%- product.id %>`, 1,`<%= user %>`)">
                                     Agregar al carrito
                                 </div>
                         <% } else { %>
